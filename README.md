@@ -45,8 +45,17 @@ A TO-DO application for task management supports creating and deleting categorie
    ```bash
    git clone https://github.com/Kyuhisan/RIS-Group-Project.git
    cd RIS-Group-Project
-## Installation: 
-- Koraki, ki jih mora nekdo upoštevati, da namesti in zažene vašo aplikacijo. 
+2. Create MySQL DB:
+  ```bash
+  Create a user on localhost
+  Set username and password in application.properties
+  Run RIS_Project.sql
+3. Establish frontend:
+  ```bash
+  Run "npm install" to get the modules
+4. Establish backend:
+  ```bash
+  Run "BackendApplication" through InteliJ 
 
 ## Contributing.
 All changes must be reviewed via Pull Requests.
