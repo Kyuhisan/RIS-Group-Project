@@ -16,4 +16,5 @@ A short description of your project goes here.
 ## Contributing.
 - Navodila za prispevanje k projektu.
 
-## Licence
+## License
+- bla

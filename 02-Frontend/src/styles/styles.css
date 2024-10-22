@@ -1,0 +1,231 @@
+/* Basic Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* Add Task Group Section */
+.add-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.add-group input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #28a745;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.add-group button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    transition: background-color 0.3s;
+}
+
+.add-group button:hover {
+    background-color: #218838;
+}
+
+/* Task Groups */
+.task-group {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.group-header h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+.delete-group {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-group:hover {
+    background-color: #c82333;
+}
+
+/* Progress Bar */
+.progress-container {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 20px;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #28a745;
+    transition: width 0.3s;
+}
+
+/* Add Task Section */
+.add-task {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.add-task input {
+    flex-grow: 1;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid #007bff;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.add-task button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    transition: background-color 0.3s;
+}
+
+.add-task button:hover {
+    background-color: #0069d9;
+}
+
+/* Task List */
+.task-list {
+    list-style-type: none;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+.task-item .task-name {
+    flex-grow: 1;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* State Selector */
+.task-state {
+    margin-right: 15px;
+}
+
+.task-state select {
+    padding: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    outline: none;
+    font-size: 14px;
+}
+
+/* Delete Task Button */
+.delete-task {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-task:hover {
+    background-color: #c82333;
+}
+
+/* State Colors */
+.state-Unfinished {
+    color: #dc3545;
+    /* Red */
+    font-weight: bold;
+}
+
+.state-WIP {
+    color: #ffc107;
+    /* Yellow */
+    font-weight: bold;
+}
+
+.state-Done {
+    color: #28a745;
+    /* Green */
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+
+    .add-group input,
+    .add-task input {
+        width: 60%;
+    }
+
+    .add-group button,
+    .add-task button {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .group-header h2 {
+        font-size: 18px;
+    }
+
+    .task-name {
+        font-size: 14px;
+    }
+
+    .task-state select {
+        font-size: 12px;
+    }
+}
