@@ -1,5 +1,5 @@
 # RIS-Group-Project
-A short description of your project goes here. 
+A TO-DO application for task management supports creating and deleting categories/groups of tasks that form a whole. Each group can contain any number of smaller tasks, which can be assigned one of the statuses: Done, WIP (Work In Progress), or Unfinished. Based on the status of these subtasks, the application calculates and displays our progress in the form of a colored progress bar. Each subtask can also be deleted.
 
 ## Table of Contents
 - [Documentation](#Documentation)
@@ -49,7 +49,7 @@ A short description of your project goes here.
 - Koraki, ki jih mora nekdo upoštevati, da namesti in zažene vašo aplikacijo. 
 
 ## Contributing.
-- Navodila za prispevanje k projektu.
+All changes must be reviewed via Pull Requests.
+Tests must pass successfully before merging.
+Follow coding and documentation standards.
 
-## License
-- bla
