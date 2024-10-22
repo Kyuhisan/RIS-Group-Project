@@ -32,10 +32,10 @@ A TO-DO application for task management supports creating and deleting categorie
   
 ### Prerequisites
 - Node.js (14.x)
-- npm (6.x) ali yarn (1.x)
+- npm (6.x) or yarn (1.x)
 - MySQL (8.x)
-- JDK (11 ali newest)
-- Maven (3.6.x ali newest)
+- JDK (11 or newest)
+- Maven (3.6.x or newest)
 
   
 ## Installation Instructions
