@@ -5,7 +5,8 @@ A TO-DO application for task management supports creating and deleting categorie
 - [Documentation](#Documentation)
 - [Installation](#Installation)
 - [Contributing](#Contributing)
-- [License](#License)	
+- [License](#License)
+- [Vocabulary](#Vocabulary)	
 
 ## Documentation: 
 
