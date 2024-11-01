@@ -10,6 +10,13 @@ A TO-DO application for task management supports creating and deleting categorie
 
 ## Documentation: 
 
+### Our Vision
+Our TO-DO application is designed for easy to track task management via task groups. These task groups allow users to organize related tasks together and track their progress more easily through easy to read visual interface. Besides simple task recording, implementing task groups goes beyond standard task tracking applications by offering structured handling and management of complex tasks. Further enhancing that is task progression tracking. By implementing status codes users can now visually see the progress of each task group by nicely color coded progress bar. All this together enables users to quickly assess how close to the completion they are with any particular task which can range from simple to more complex.
+
+Application is intended for any user that prefers visual task management instead of monotonous alternatives. It is great for tracking simple tasks but shines when it comes to complex projects where users can easily track their progress of tasks that require multiple smaller tasks to be completed. Therefore the application will find it's way mostly into hands of students, freelancers and team managers who work on shared projects.
+
+Applications function wise offer all the necessary functions like creating, editing and deleting both individual as well as group tasks via simple interface interactions. This highly improves productivity and ease of use, which keeps users motivated to keep their tasks recorded and organized as they won't see task management as a chore, but rather a tool that improves their productivity.
+
 ### Project Structure
 - `src/`: Contains the project's source code.
   - `main/`: Main application.
