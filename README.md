@@ -80,4 +80,6 @@ Task group	| The user has the option of grouping individual tasks into groups. I
 Task status	| The task performed by the user goes through three different statuses: Unfinished, WIP (Working in process) and Done. Depending on the state of the current task, the user can mark it on the application.
 Task action	| Task action allows the user to edit or delete an individual task.
 
+## DPU
 
+![DPU](https://github.com/user-attachments/assets/e7590fdf-e4ca-4d11-a611-d141ef8ad685)
