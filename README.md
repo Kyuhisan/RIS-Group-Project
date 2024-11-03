@@ -5,11 +5,18 @@ A TO-DO application for task management supports creating and deleting categorie
 - [Documentation](#Documentation)
 - [Installation](#Installation)
 - [Contributing](#Contributing)
-- [License](#License)	
+- [License](#License)
+- [Vocabulary](#Vocabulary)	
 
 ## Documentation: 
-- Opis projektne strukture, standardi kodiranja, informacije o uporabljenih orodjih, frameworkih in različicah
-- 
+
+### Our Vision
+Our TO-DO application is designed for easy to track task management via task groups. These task groups allow users to organize related tasks together and track their progress more easily through easy to read visual interface. Besides simple task recording, implementing task groups goes beyond standard task tracking applications by offering structured handling and management of complex tasks. Further enhancing that is task progression tracking. By implementing status codes users can now visually see the progress of each task group by nicely color coded progress bar. All this together enables users to quickly assess how close to the completion they are with any particular task which can range from simple to more complex.
+
+Application is intended for any user that prefers visual task management instead of monotonous alternatives. It is great for tracking simple tasks but shines when it comes to complex projects where users can easily track their progress of tasks that require multiple smaller tasks to be completed. Therefore the application will find it's way mostly into hands of students, freelancers and team managers who work on shared projects.
+
+Applications function wise offer all the necessary functions like creating, editing and deleting both individual as well as group tasks via simple interface interactions. This highly improves productivity and ease of use, which keeps users motivated to keep their tasks recorded and organized as they won't see task management as a chore, but rather a tool that improves their productivity.
+
 ### Project Structure
 - `src/`: Contains the project's source code.
   - `main/`: Main application.
@@ -74,4 +81,16 @@ A TO-DO application for task management supports creating and deleting categorie
 All changes must be reviewed via Pull Requests.
 Tests must pass successfully before merging.
 Follow coding and documentation standards.
+
+## Vocabulary
+
+| Word | Discription |
+| ------------- | ------------- |
+Task |	Task is the main data processed by our configuration. In fact, it represents a task or simply a reminder that the user must complete and write it down in our application so he doesn't forget. In addition, the application offers him the option of appropriately marking, grouping and describing this task.
+Task name	| With task name, the user names an individual task. The naming can be arbitrary and is basically of the string type. For each new task, the program automatically assigns an ID, which is a unique key for each task.
+Task disription	| Task description represents a space where the user can describe an individual task. The description can be as long as you like and is helpful for the user to find their way around when reviewing past tasks.
+Task group	| The user has the option of grouping individual tasks into groups. It does this by assigning them a task group. Tasks with the same task group belong to the same group. This makes it easier for the user to carry out more demanding tasks, as they can be divided into several parts.
+Task status	| The task performed by the user goes through three different statuses: Unfinished, WIP (Working in process) and Done. Depending on the state of the current task, the user can mark it on the application.
+Task action	| Task action allows the user to edit or delete an individual task.
+
 
