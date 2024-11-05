@@ -82,4 +82,5 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ## DPU
 
-![DPU](https://github.com/user-attachments/assets/e7590fdf-e4ca-4d11-a611-d141ef8ad685)
+![DPU](https://github.com/user-attachments/assets/d4f2f607-0ba4-4b77-9ab2-9917da8da5cb)
+
