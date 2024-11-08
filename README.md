@@ -84,3 +84,10 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ![DPU](https://github.com/user-attachments/assets/d4f2f607-0ba4-4b77-9ab2-9917da8da5cb)
 
+## Functionality Discription
+
+| ID   | Cilj                             | Akterji               | Predpogoji                        | Stanje sistema po PU          | Scenarij                              | Alternativni tokovi                          | Izjeme                                     |
+|------|----------------------------------|-----------------------|-----------------------------------|--------------------------------|----------------------------------------|---------------------------------------------|--------------------------------------------|
+| UC001| Dodajanje nalog v "to-do" seznam | Končni uporabnik, Sistem | Uporabnik je prijavljen, Seznam je odprt | Nova naloga je dodana na seznam | 1. Uporabnik odpre aplikacijo 2. Uporabnik izbere možnost dodajanja nove naloge 3. Sistem prikaže obrazec 4. Uporabnik vnese podrobnosti 5. Uporabnik shrani nalogo 6. Sistem shrani nalogo 7. Sistem prikaže posodobljen seznam | Uporabnik ne vnese vseh potrebnih informacij (prikaz sporočila o napaki)   | Napaka pri shranjevanju naloge (prikaz sporočila o napaki)   |
+
+
