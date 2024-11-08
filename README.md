@@ -82,7 +82,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ## DPU
 
-![DPU](https://github.com/user-attachments/assets/f4e18531-8455-4ef1-9123-91024ae263ca)
+![DPU](https://github.com/user-attachments/assets/83db31ac-5b7e-4a3a-a1b7-18f7fb367293)
 
 ## Functionality Discription
 
@@ -104,8 +104,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | There is at least one task inside the database. |
 | **System State After PU**     | The system displays search results based on the entered query. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. A search field appears at the top of the application. <br> 3. The user enters a search query. <br>
-4. System in real time searches the database for matching results. <br> 5. The system displays search results. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. A search field appears at the top of the application. <br> 3. The user enters a search query. <br> 4. System in real time searches the database for matching results. <br> 5. The system displays search results. |
 | **Alternative Flows**      | If no tasks match the search criteria, the system displays a message (No results found!). |
 | **Exceptions**                   | 	Search error (displays an error message). |
 
@@ -116,8 +115,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | The user has entered the group name. |
 | **System State After PU**     | A new group is added to the database. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user enters the group name in an input field. <br> 3. The user adds the group to the system. <br>
-4. The application saves the group to the database. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user enters the group name in an input field. <br> 3. The user adds the group to the system. <br> 4. The application saves the group to the database. |
 | **Alternative Flows**      | The user does not enter a group name (displays an error message). |
 | **Exceptions**                   | 	1. Error saving the group (displays an error message). <br> 2. Error creating the group (displays an error message). |
    
@@ -128,12 +126,9 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | At least one group exists in the system. |
 | **System State After PU**     | A color-coded progress bar appears in the user interface. |
-| **Scenario**                 | 	1. The user opens the application. <br> 2. The system retrieves the list of groups from the database. <br> 3. The system displays the groups in the user interface. <br>
-4. The system reads the statuses of tasks within each group. <br> 5. The system calculates progress based on task statuses. <br> 6. The system updates each group’s progress bar. <br>
-7. The system displays the updated progress. |
+| **Scenario**                 | 	1. The user opens the application. <br> 2. The system retrieves the list of groups from the database. <br> 3. The system displays the groups in the user interface. <br> 4. The system reads the statuses of tasks within each group. <br> 5. The system calculates progress based on task statuses. <br> 6. The system updates each group’s progress bar. <br> 7. The system displays the updated progress. |
 | **Alternative Flows**      | The system does not find the group. |
-| **Exceptions**                   | 	1. Error finding the group in the database (displays an error message). <br> 2. Error displaying progress (displays an error message). <br>
-3. Error calculating progress (displays an error message). |
+| **Exceptions**                   | 	1. Error finding the group in the database (displays an error message). <br> 2. Error displaying progress (displays an error message). <br> 3. Error calculating progress (displays an error message). |
 
 ### Task Group Deletion
 | Primer uporabe              | ID: 42 |
@@ -142,8 +137,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | A group exists that the user wants to delete. |
 | **System State After PU**     | The group is deleted from the database and removed from the system. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects a group. <br> 3. The user clicks on "delete". <br>
-4. The application sends the request to the database. <br> 5. The application deletes the group from the database. <br> 6. The system is updated without the deleted group. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects a group. <br> 3. The user clicks on "delete". <br> 4. The application sends the request to the database. <br> 5. The application deletes the group from the database. <br> 6. The system is updated without the deleted group. |
 | **Alternative Flows**      | Wrong group is deleted. |
 | **Exceptions**                   | 	1. User error during group deletion (displays an error message). <br> 2. Error deleting the group from the database (displays an error message). |
 
@@ -154,9 +148,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | 	1. The group exists. <br> 2. All data is entered. |
 | **System State After PU**     | A new task is added to the group. |
-| **Scenario**                 | 	1. The user opens the application. <br> 2. The user selects the option to add a new task within a group. <br>
-3. The system displays a form. <br> 4. The user enters the task details. <br> 5. The user saves the task. <br> 6. The system saves the task. <br>
-7. The system displays the updated list. |
+| **Scenario**                 | 	1. The user opens the application. <br> 2. The user selects the option to add a new task within a group. <br> 3. The system displays a form. <br> 4. The user enters the task details. <br> 5. The user saves the task. <br> 6. The system saves the task. <br> 7. The system displays the updated list. |
 | **Alternative Flows**      | 	1. The user does not enter all required information (displays an error message). <br> 2. The user selects the wrong group |
 | **Exceptions**                   | Error saving the task (displays an error message). |
 
@@ -167,9 +159,6 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | Task exists. |
 | **System State After PU**     | Task status is changed and progress is updated. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects the option to change the task status within a group. <br>
-3. The user selects the appropriate status. <br> 4. The system sends the request to the database. <br> 5. The system updates the task status in the database. <br>
-6. The system recalculates progress. <br> 7. The system displays the updated status and progress in a color-coded progress bar. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects the option to change the task status within a group. <br> 3. The user selects the appropriate status. <br> 4. The system sends the request to the database. <br> 5. The system updates the task status in the database. <br> 6. The system recalculates progress. <br> 7. The system displays the updated status and progress in a color-coded progress bar. |
 | **Alternative Flows**      | User selects the existing status. |
-| **Exceptions**                   | 1. Error changing task status (displays an error message). <br> 2. Error recalculating progress (displays an error message). <br>
-3. Error saving the updated status to the database (displays an error message). |
+| **Exceptions**                   | 1. Error changing task status (displays an error message). <br> 2. Error recalculating progress (displays an error message). <br> 3. Error saving the updated status to the database (displays an error message). |
