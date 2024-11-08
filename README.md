@@ -86,8 +86,41 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ## Functionality Discription
 
-| ID   | Cilj                             | Akterji               | Predpogoji                        | Stanje sistema po PU          | Scenarij                              | Alternativni tokovi                          | Izjeme                                     |
-|------|----------------------------------|-----------------------|-----------------------------------|--------------------------------|----------------------------------------|---------------------------------------------|--------------------------------------------|
-| UC001| Dodajanje nalog v "to-do" seznam | Končni uporabnik, Sistem | Uporabnik je prijavljen, Seznam je odprt | Nova naloga je dodana na seznam | 1. Uporabnik odpre aplikacijo 2. Uporabnik izbere možnost dodajanja nove naloge 3. Sistem prikaže obrazec 4. Uporabnik vnese podrobnosti 5. Uporabnik shrani nalogo 6. Sistem shrani nalogo 7. Sistem prikaže posodobljen seznam | Uporabnik ne vnese vseh potrebnih informacij (prikaz sporočila o napaki)   | Napaka pri shranjevanju naloge (prikaz sporočila o napaki)   |
+### Dodajnje taska
+| Primer uporabe              | ID: 10 |
+|------------------------------|---------|
+| **Cilj**                     | Dodajanje nalog v "To-do" seznam |
+| **Akterji**                  | Končni uporabnik, sistem |
+| **Predpogoji**               | Seznam je odprt |
+| **Stanje sistema po PU**     | Nova naloga je dodana na seznam |
+| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. Uporabnik izbere možnost dodajanja nove naloge. <br> 3. Sistem prikaže obrazec. <br> 4. Uporabnik vnese podrobnosti. <br> 5. Uporabnik shrani nalogo. <br> 6. Sistem shrani nalogo. <br> 7. Sistem prikaže posodobljen seznam. |
+| **Alternativni tokovi**      | Uporabnik ne vnese vseh potrebnih informacij (prikaz sporočila o napaki). |
+| **Izjeme**                   | Napaka pri shranjevanju naloge (prikaz sporočila o napaki). |
+
+### Pregled taskov
+| Primer uporabe              | ID: 30 |
+|------------------------------|---------|
+| **Cilj**                     | Pregled nalog v "To-do" seznamu |
+| **Akterji**                  | Končni uporabnik, sistem |
+| **Predpogoji**               | Seznam je odprt |
+| **Stanje sistema po PU**     | Sistem prikazuje vse trenutne naloge v "To-do" seznamu |
+| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. Sistem v telesu aplikacije prikaže seznam vseh nalog. <br> 3. Uporabnik pregleda naloge. |
+| **Alternativni tokovi**      | Če ni nalog, sistem prikaže sporočilo, da ni nalog za prikaz. |
+| **Izjeme**                   | Napaka pri nalaganju nalog (prikaz sporočila o napaki). |
+
+### Iskanje taskov
+| Primer uporabe              | ID: 31 |
+|------------------------------|---------|
+| **Cilj**                     | Iskanje nalog v "To-do" seznamu |
+| **Akterji**                  | Končni uporabnik, sistem |
+| **Predpogoji**               | Seznam je odprt |
+| **Stanje sistema po PU**     | Sistem prikazuje rezultate iskanja na podlagi vnesene besede ali številke |
+| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. V glavi aplikacije se prikaže iskalno polje. <br> 3. Uporabnik vnese iskano besedo ali številko naloge. <br> 4. Uporabnik klikne gumb za iskanje. <br> 5. Sistem prikaže rezultate iskanja. <br> 6. Uporabnik pregleda rezultate iskanja. |
+| **Alternativni tokovi**      | Če ni nalog, ki bi ustrezale iskalnim kriterijem, sistem prikaže sporočilo. |
+| **Izjeme**                   | Napaka pri iskanju (prikaz sporočila o napaki). |
+
+
+   
+
 
 
