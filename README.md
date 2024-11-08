@@ -86,41 +86,90 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ## Functionality Discription
 
-### Dodajnje taska
-| Primer uporabe              | ID: 10 |
+### Task Overview
+| Use Case             | ID: 30 |
 |------------------------------|---------|
-| **Cilj**                     | Dodajanje nalog v "To-do" seznam |
-| **Akterji**                  | Končni uporabnik, sistem |
-| **Predpogoji**               | Seznam je odprt |
-| **Stanje sistema po PU**     | Nova naloga je dodana na seznam |
-| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. Uporabnik izbere možnost dodajanja nove naloge. <br> 3. Sistem prikaže obrazec. <br> 4. Uporabnik vnese podrobnosti. <br> 5. Uporabnik shrani nalogo. <br> 6. Sistem shrani nalogo. <br> 7. Sistem prikaže posodobljen seznam. |
-| **Alternativni tokovi**      | Uporabnik ne vnese vseh potrebnih informacij (prikaz sporočila o napaki). |
-| **Izjeme**                   | Napaka pri shranjevanju naloge (prikaz sporočila o napaki). |
+| **Goal**                     | Display all available tasks. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | There is at least one task and one group. |
+| **System State After PU**     | The system displays all current tasks. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The system displays a list of all groups and all tasks in those groups inside the body of the application. |
+| **Alternative Flows**      | 1. There are no tasks so the system displays a message (There are no tasks to show!). <br> 2. There are no groups, threfore there can't be any tasks. (There are no tasks to show!). |
+| **Exceptions**                   | 	Error loading tasks (displays an error message). |
 
-### Pregled taskov
-| Primer uporabe              | ID: 30 |
-|------------------------------|---------|
-| **Cilj**                     | Pregled nalog v "To-do" seznamu |
-| **Akterji**                  | Končni uporabnik, sistem |
-| **Predpogoji**               | Seznam je odprt |
-| **Stanje sistema po PU**     | Sistem prikazuje vse trenutne naloge v "To-do" seznamu |
-| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. Sistem v telesu aplikacije prikaže seznam vseh nalog. <br> 3. Uporabnik pregleda naloge. |
-| **Alternativni tokovi**      | Če ni nalog, sistem prikaže sporočilo, da ni nalog za prikaz. |
-| **Izjeme**                   | Napaka pri nalaganju nalog (prikaz sporočila o napaki). |
-
-### Iskanje taskov
+### Task Search
 | Primer uporabe              | ID: 31 |
 |------------------------------|---------|
-| **Cilj**                     | Iskanje nalog v "To-do" seznamu |
-| **Akterji**                  | Končni uporabnik, sistem |
-| **Predpogoji**               | Seznam je odprt |
-| **Stanje sistema po PU**     | Sistem prikazuje rezultate iskanja na podlagi vnesene besede ali številke |
-| **Scenarij**                 | 1. Uporabnik odpre aplikacijo. <br> 2. V glavi aplikacije se prikaže iskalno polje. <br> 3. Uporabnik vnese iskano besedo ali številko naloge. <br> 4. Uporabnik klikne gumb za iskanje. <br> 5. Sistem prikaže rezultate iskanja. <br> 6. Uporabnik pregleda rezultate iskanja. |
-| **Alternativni tokovi**      | Če ni nalog, ki bi ustrezale iskalnim kriterijem, sistem prikaže sporočilo. |
-| **Izjeme**                   | Napaka pri iskanju (prikaz sporočila o napaki). |
+| **Goal**                     | Tasks can be searched. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | There is at least one task inside the database. |
+| **System State After PU**     | The system displays search results based on the entered query. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. A search field appears at the top of the application. <br> 3. The user enters a search query. <br>
+4. System in real time searches the database for matching results. <br> 5. The system displays search results. |
+| **Alternative Flows**      | If no tasks match the search criteria, the system displays a message (No results found!). |
+| **Exceptions**                   | 	Search error (displays an error message). |
 
-
+### Task Group Creation
+| Primer uporabe              | ID: 40 |
+|------------------------------|---------|
+| **Goal**                     | A new empty task group is created. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | The user has entered the group name. |
+| **System State After PU**     | A new group is added to the database. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user enters the group name in an input field. <br> 3. The user adds the group to the system. <br>
+4. The application saves the group to the database. |
+| **Alternative Flows**      | The user does not enter a group name (displays an error message). |
+| **Exceptions**                   | 	1. Error saving the group (displays an error message). <br> 2. Error creating the group (displays an error message). |
    
+### Display Task Group Progress
+| Primer uporabe              | ID: 41 |
+|------------------------------|---------|
+| **Goal**                     | Visual representation of progress in the form of a color-coded progress bar. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | At least one group exists in the system. |
+| **System State After PU**     | A color-coded progress bar appears in the user interface. |
+| **Scenario**                 | 	1. The user opens the application. <br> 2. The system retrieves the list of groups from the database. <br> 3. The system displays the groups in the user interface. <br>
+4. The system reads the statuses of tasks within each group. <br> 5. The system calculates progress based on task statuses. <br> 6. The system updates each group’s progress bar. <br>
+7. The system displays the updated progress. |
+| **Alternative Flows**      | The system does not find the group. |
+| **Exceptions**                   | 	1. Error finding the group in the database (displays an error message). <br> 2. Error displaying progress (displays an error message). <br>
+3. Error calculating progress (displays an error message). |
 
+### Task Group Deletion
+| Primer uporabe              | ID: 42 |
+|------------------------------|---------|
+| **Goal**                     | Group is deleted from the system. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | A group exists that the user wants to delete. |
+| **System State After PU**     | The group is deleted from the database and removed from the system. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects a group. <br> 3. The user clicks on "delete". <br>
+4. The application sends the request to the database. <br> 5. The application deletes the group from the database. <br> 6. The system is updated without the deleted group. |
+| **Alternative Flows**      | Wrong group is deleted. |
+| **Exceptions**                   | 	1. User error during group deletion (displays an error message). <br> 2. Error deleting the group from the database (displays an error message). |
 
+### Task Addition
+| Primer uporabe              | ID: 43 |
+|------------------------------|---------|
+| **Goal**                     | Task is added to a group. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | 	1. The group exists. <br> 2. All data is entered. |
+| **System State After PU**     | A new task is added to the group. |
+| **Scenario**                 | 	1. The user opens the application. <br> 2. The user selects the option to add a new task within a group. <br>
+3. The system displays a form. <br> 4. The user enters the task details. <br> 5. The user saves the task. <br> 6. The system saves the task. <br>
+7. The system displays the updated list. |
+| **Alternative Flows**      | 	1. The user does not enter all required information (displays an error message). <br> 2. The user selects the wrong group |
+| **Exceptions**                   | Error saving the task (displays an error message). |
 
+### Task Status Change
+| Primer uporabe              | ID: 44 |
+|------------------------------|---------|
+| **Goal**                     | Task status is changed. |
+| **Actors**                  | End user, System. |
+| **Prerequisites**               | Task exists. |
+| **System State After PU**     | Task status is changed and progress is updated. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user selects the option to change the task status within a group. <br>
+3. The user selects the appropriate status. <br> 4. The system sends the request to the database. <br> 5. The system updates the task status in the database. <br>
+6. The system recalculates progress. <br> 7. The system displays the updated status and progress in a color-coded progress bar. |
+| **Alternative Flows**      | User selects the existing status. |
+| **Exceptions**                   | 1. Error changing task status (displays an error message). <br> 2. Error recalculating progress (displays an error message). <br>
+3. Error saving the updated status to the database (displays an error message). |
