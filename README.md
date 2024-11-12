@@ -1,3 +1,4 @@
+Authors: Matic Kuhar, Rene Laufer, Filip Rap
 # RIS-Group-Project
 A TO-DO application for task management supports creating and deleting categories/groups of tasks that form a whole. Each group can contain any number of smaller tasks, which can be assigned one of the statuses: Done, WIP (Work In Progress), or Unfinished. Based on the status of these subtasks, the application calculates and displays our progress in the form of a colored progress bar. Each subtask can also be deleted.
 
@@ -128,7 +129,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **System State After PU**     | The system displays all current tasks. |
 | **Scenario**                 | 1. The user opens the application. <br> 2. The system displays a list of all groups and all tasks in those groups inside the body of the application. |
 | **Alternative Flows**      | 1. There are no tasks so the system displays a message (There are no tasks to show!). <br> 2. There are no groups, threfore there can't be any tasks. (There are no tasks to show!). |
-| **Exceptions**                   | 	Error loading tasks (displays an error message). |
+| **Exceptions**                   | 	2.1 Error loading tasks (displays an error message). |
 
 ### Task Search
 | Primer uporabe              | ID: 31 |
@@ -139,7 +140,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **System State After PU**     | The system displays search results based on the entered query. |
 | **Scenario**                 | 1. The user opens the application. <br> 2. A search field appears at the top of the application. <br> 3. The user enters a search query. <br> 4. System in real time searches the database for matching results. <br> 5. The system displays search results. |
 | **Alternative Flows**      | If no tasks match the search criteria, the system displays a message (No results found!). |
-| **Exceptions**                   | 	Search error (displays an error message). |
+| **Exceptions**                   | 5.1	Search error (displays an error message). |
 
 ### Task Group Creation
 | Primer uporabe              | ID: 40 |
@@ -148,9 +149,9 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | The user has entered the group name. |
 | **System State After PU**     | A new group is added to the database. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user enters the group name in an input field. <br> 3. The user adds the group to the system. <br> 4. The application saves the group to the database. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user enters the group name. <br> 3. The user adds the group to the system. <br> 4. The application saves the group to the database. |
 | **Alternative Flows**      | The user does not enter a group name (displays an error message). |
-| **Exceptions**                   | 	1. Error saving the group (displays an error message). <br> 2. Error creating the group (displays an error message). |
+| **Exceptions**                   |  <br> 3.1. Error creating the group (displays an error message).	4.1. Error saving the group (displays an error message). |
    
 ### Display Task Group Progress
 | Primer uporabe              | ID: 41 |
