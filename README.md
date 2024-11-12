@@ -94,31 +94,9 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Actors**                  | End user, System. |
 | **Prerequisites**               | There is at least one task. |
 | **System State After PU**     | The system displays the changes. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user presses one of the buttons displayed on the task. <br> 3. The user makes changes to the task. <br> 4. The system make corresponding changes in the database. <br> 5. The system displays the changes to the user. |
-| **Alternative Flows**      | 1. Wrong task edited. <br> 2. Wrong task deleted. |
+| **Scenario**                 | 1. The user opens the application. <br> 2. The user presses one of the buttons displayed on the task. <br> 3. The user deletes/changes name of the task. <br> 4. The system make corresponding changes in the database. <br> 5. The system displays the changes to the user. |
+| **Alternative Flows**      | 2.1.1 User pressed "Edit" button. <br>&emsp; 2.1.2 User enters new name for the task. <br>&emsp; 2.1.3 User confirms the change of name. <br>&emsp; 2.1.4 System changes the name of the task in database. <br> 2.2.1 User pressed "Delete" button. <br>&emsp; 2.2.2 User confirms deletion of the task. <br>&emsp; 2.2.3 System deletes the task from database. |
 | **Exceptions**                   | 	Error saving task information (displays an error message). |
-
-### Task Editing
-| Use Case             | ID: 21 |
-|------------------------------|---------|
-| **Goal**                     | Edit a single task. |
-| **Actors**                  | End user, System. |
-| **Prerequisites**               | There is at least one task. |
-| **System State After PU**     | The system changes and displays the task. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user presses the "Edit" button on the task. <br> 3. The user makes changes to the task. <br> 4. The system make corresponding changes in the database. <br> 5. The system displays the changes to the user. |
-| **Alternative Flows**      | 1. Wrong task edited. |
-| **Exceptions**                   | 	Error saving task information (displays an error message). |
-
-### Task Deletion
-| Use Case             | ID: 22 |
-|------------------------------|---------|
-| **Goal**                     | Delete a single task. |
-| **Actors**                  | End user, System. |
-| **Prerequisites**               | There is at least one task. |
-| **System State After PU**     | The system deletes the task. |
-| **Scenario**                 | 1. The user opens the application. <br> 2. The user presses the "Delete" button on the task. <br> 3. The user confrims deletion of the task. <br> 4. The system delets corresponding task in the database. <br> 5. The system displays the changes to the user. |
-| **Alternative Flows**      | 1. Wrong task deleted. <br> 2. Task has already been deleted. |
-| **Exceptions**                   | 	Error deleting task (displays an error message). |
 
 ### Task Overview
 | Use Case             | ID: 30 |
