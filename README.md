@@ -174,3 +174,103 @@ Task action	| Task action allows the user to edit or delete an individual task.
 | **Scenario**                 | 1. The user opens the application. <br> 2. The user selects the option to change the task status within a group. <br> 3. The user selects the appropriate status. <br> 4. The system sends the request to the database. <br> 5. The system updates the task status in the database. <br> 6. The system recalculates progress. <br> 7. The system displays the updated status and progress in a color-coded progress bar. |
 | **Alternative Flows**      | User selects the existing status. |
 | **Exceptions**                   | 1. Error changing task status (displays an error message). <br> 2. Error recalculating progress (displays an error message). <br> 3. Error saving the updated status to the database (displays an error message). |
+
+## Classes and Their Roles
+
+1. **Task**
+   - **Role**: Represents an individual task.
+   - **Attributes**:
+     - `taskID`: Unique identifier for the task.
+     - `taskName`: Name of the task.
+     - `taskStatus`: Status of the task (e.g., IN_PROGRESS, FINISHED, NOT_STARTED).
+     - `taskDescription`: Description of the task.
+     - `taskGroup`: The group to which the task belongs.
+
+2. **TaskDTO**
+   - **Role**: Data transfer object for tasks without unnecessary details.
+   - **Attributes**:
+     - `taskID`: Unique identifier for the task.
+     - `taskName`: Name of the task.
+     - `taskStatus`: Status of the task.
+
+3. **Task Services**
+   - **Role**: Business logic for managing tasks.
+   - **Methods**:
+     - `createTask(taskDTO: TaskDTO): Task`: Creates a new task.
+     - `editTask(taskID: int, taskDTO: TaskDTO): Task`: Edits an existing task.
+     - `deleteTask(taskID: int): void`: Deletes a task.
+     - `getTask(taskID: int): Task`: Retrieves a task by ID.
+     - `getAllTasks(): List<Task>`: Retrieves all tasks.
+
+4. **TaskController**
+   - **Role**: Manages HTTP requests for tasks.
+   - **Methods**:
+     - `addTask(taskDTO: TaskDTO): Task`: Adds a new task.
+     - `updateTask(taskID: int, taskDTO: TaskDTO): Task`: Updates an existing task.
+     - `removeTask(taskID: int): void`: Removes a task.
+     - `retrieveTask(taskID: int): Task`: Retrieves a task by ID.
+     - `retrieveAllTasks(): List<Task>`: Retrieves all tasks.
+
+5. **TaskRepository**
+   - **Role**: Manages the database for tasks.
+   - **Methods**:
+     - `findTaskByID(taskID: int): Task`: Finds a task by ID.
+     - `saveTask(task: Task): Task`: Saves a task.
+     - `deleteTask(taskID: int): void`: Deletes a task.
+     - `findAllTasks(): List<Task>`: Finds all tasks.
+
+6. **Group**
+   - **Role**: Represents a group of tasks.
+   - **Attributes**:
+     - `groupID`: Unique identifier for the group.
+     - `groupName`: Name of the group.
+     - `groupProgress`: Progress of the group.
+     - `listOfTasks`: List of tasks in the group.
+
+7. **GroupDTO**
+   - **Role**: Data transfer object for groups without unnecessary details.
+   - **Attributes**:
+     - `groupID`: Unique identifier for the group.
+     - `groupName`: Name of the group.
+     - `groupProgress`: Progress of the group.
+
+8. **Group Services**
+   - **Role**: Business logic for managing groups.
+   - **Methods**:
+     - `createGroup(groupDTO: GroupDTO): Group`: Creates a new group.
+     - `editGroup(groupID: int, groupDTO: GroupDTO): Group`: Edits an existing group.
+     - `deleteGroup(groupID: int): void`: Deletes a group.
+     - `getGroup(groupID: int): Group`: Retrieves a group by ID.
+     - `getAllGroups(): List<Group>`: Retrieves all groups.
+
+9. **GroupController**
+   - **Role**: Manages HTTP requests for groups.
+   - **Methods**:
+     - `addGroup(groupDTO: GroupDTO): Group`: Adds a new group.
+     - `updateGroup(groupID: int, groupDTO: GroupDTO): Group`: Updates an existing group.
+     - `removeGroup(groupID: int): void`: Removes a group.
+     - `retrieveGroup(groupID: int): Group`: Retrieves a group by ID.
+     - `retrieveAllGroups(): List<Group>`: Retrieves all groups.
+
+10. **GroupRepository**
+    - **Role**: Manages the database for groups.
+    - **Methods**:
+      - `findGroupByID(groupID: int): Group`: Finds a group by ID.
+      - `saveGroup(group: Group): Group`: Saves a group.
+      - `deleteGroup(groupID: int): void`: Deletes a group.
+      - `findAllGroups(): List<Group>`: Finds all groups.
+
+11. **TaskStatus**
+    - **Role**: Enum for task statuses.
+    - **Values**:
+      - `IN_PROGRESS`: 0
+      - `FINISHED`: 1
+      - `NOT_STARTED`: 2
+
+### Key Methods and Their Tasks
+
+- **createTask** and **createGroup**: Creating new entities (tasks and groups).
+- **editTask** and **editGroup**: Editing existing entities.
+- **deleteTask** and **deleteGroup**: Deleting entities.
+- **getTask** and **getGroup**: Retrieving individual entities by ID.
+- **getAllTasks** and **getAllGroups**: Retrieving all entities.
