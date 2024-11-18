@@ -200,7 +200,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
      - `editTask(taskID: int, taskDTO: TaskDTO): Task`: Edits an existing task.
      - `deleteTask(taskID: int): void`: Deletes a task.
      - `getTask(taskID: int): Task`: Retrieves a task by ID.
-     - `getAllTasks(): List<Task>`: Retrieves all tasks.
+     - `getAllTasks(): List`: Retrieves all tasks.
 
 4. **TaskController**
    - **Role**: Manages HTTP requests for tasks.
@@ -209,7 +209,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
      - `updateTask(taskID: int, taskDTO: TaskDTO): Task`: Updates an existing task.
      - `removeTask(taskID: int): void`: Removes a task.
      - `retrieveTask(taskID: int): Task`: Retrieves a task by ID.
-     - `retrieveAllTasks(): List<Task>`: Retrieves all tasks.
+     - `retrieveAllTasks(): List`: Retrieves all tasks.
 
 5. **TaskRepository**
    - **Role**: Manages the database for tasks.
@@ -217,7 +217,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
      - `findTaskByID(taskID: int): Task`: Finds a task by ID.
      - `saveTask(task: Task): Task`: Saves a task.
      - `deleteTask(taskID: int): void`: Deletes a task.
-     - `findAllTasks(): List<Task>`: Finds all tasks.
+     - `findAllTasks(): List`: Finds all tasks.
 
 6. **Group**
    - **Role**: Represents a group of tasks.
@@ -241,7 +241,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
      - `editGroup(groupID: int, groupDTO: GroupDTO): Group`: Edits an existing group.
      - `deleteGroup(groupID: int): void`: Deletes a group.
      - `getGroup(groupID: int): Group`: Retrieves a group by ID.
-     - `getAllGroups(): List<Group>`: Retrieves all groups.
+     - `getAllGroups(): List`: Retrieves all groups.
 
 9. **GroupController**
    - **Role**: Manages HTTP requests for groups.
@@ -250,7 +250,7 @@ Task action	| Task action allows the user to edit or delete an individual task.
      - `updateGroup(groupID: int, groupDTO: GroupDTO): Group`: Updates an existing group.
      - `removeGroup(groupID: int): void`: Removes a group.
      - `retrieveGroup(groupID: int): Group`: Retrieves a group by ID.
-     - `retrieveAllGroups(): List<Group>`: Retrieves all groups.
+     - `retrieveAllGroups(): List`: Retrieves all groups.
 
 10. **GroupRepository**
     - **Role**: Manages the database for groups.
@@ -258,9 +258,17 @@ Task action	| Task action allows the user to edit or delete an individual task.
       - `findGroupByID(groupID: int): Group`: Finds a group by ID.
       - `saveGroup(group: Group): Group`: Saves a group.
       - `deleteGroup(groupID: int): void`: Deletes a group.
-      - `findAllGroups(): List<Group>`: Finds all groups.
+      - `findAllGroups(): List`: Finds all groups.
 
-11. **TaskStatus**
+11. **SearchService**
+    - **Role**: Provides search functionality for tasks and groups.
+    - **Attributes**:
+      - `searchQuery`: The query string for searching.
+    - **Methods**:
+      - `searchTasks(searchQuery: String): List`: Searches for tasks based on the query.
+      - `searchGroups(searchQuery: String): List`: Searches for groups based on the query.
+
+12. **TaskStatus**
     - **Role**: Enum for task statuses.
     - **Values**:
       - `IN_PROGRESS`: 0
@@ -274,3 +282,4 @@ Task action	| Task action allows the user to edit or delete an individual task.
 - **deleteTask** and **deleteGroup**: Deleting entities.
 - **getTask** and **getGroup**: Retrieving individual entities by ID.
 - **getAllTasks** and **getAllGroups**: Retrieving all entities.
+- **searchTasks** and **searchGroups**: Searching for tasks and groups based on a query.
