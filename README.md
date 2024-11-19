@@ -285,4 +285,4 @@ Task action	| Task action allows the user to edit or delete an individual task.
 - **searchTasks** and **searchGroups**: Searching for tasks and groups based on a query.
 
 ## Class Diagram
-![To-Do Class Diagram - Final 3 vpd vpd](https://github.com/user-attachments/assets/32d35d9f-a03a-464a-aeaf-38b85cecd9b9)
+![To-Do Class Diagram - Final 3 vpd (1) vpd (1)](https://github.com/user-attachments/assets/05f1dc15-b90d-4782-9729-53e8efb43a84)
