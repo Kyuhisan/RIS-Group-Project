@@ -42,7 +42,7 @@ public class TaskController {
                     task.setTaskName(newTask.getTaskName());
                     task.setTaskDescription(newTask.getTaskDescription());
                     task.setTaskGroup(newTask.getTaskGroup());
-                    task.setStatus(newTask.isStatus());
+                    task.setStatus(newTask.getStatus());
                     return taskRepository.save(task);
                 }).orElseThrow(() -> new RuntimeException("Task not found with id:" + id));
     }
