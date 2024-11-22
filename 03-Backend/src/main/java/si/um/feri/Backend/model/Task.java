@@ -1,8 +1,6 @@
 package si.um.feri.Backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,9 +15,11 @@ public class Task {
     private String taskName;
     private String taskDescription;
     private String taskGroup;
-    private boolean status; // true = done, false = not done, null = in progress
 
-    public Task(String taskName, String taskDescription, String taskGroup, boolean status) {
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
+    public Task(String taskName, String taskDescription, String taskGroup, TaskStatus status) {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskGroup = taskGroup;
