@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Entity
-public class Group {
+public class TaskGroup {
     @Id
     @GeneratedValue
     private Integer groupId;
@@ -19,7 +19,7 @@ public class Group {
     @OneToMany(mappedBy = "taskGroup")
     private List<Task> listOfTasks;
 
-    public Group(String groupName, double groupProgress, List<Task> listOfTasks) {
+    public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks) {
         this.groupName = groupName;
         this.groupProgress = groupProgress;
         this.listOfTasks = listOfTasks;

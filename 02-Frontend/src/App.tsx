@@ -1,7 +1,7 @@
 import "./styles/styles.css";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AddTask from "./tasks/addTask";
+import AddTask from "./tasks/AddTask";
 import EditTask from "./tasks/EditTask";
 
 function App() {
