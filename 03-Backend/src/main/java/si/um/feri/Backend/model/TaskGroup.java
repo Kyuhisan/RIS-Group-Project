@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class TaskGroup {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer groupId;
 
     private String groupName;
