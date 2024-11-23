@@ -54,7 +54,6 @@ Applications function wise offer all the necessary functions like creating, edit
    git clone https://github.com/Kyuhisan/RIS-Group-Project.git
    cd RIS-Group-Project
 2. Create MySQL DB:
-<<<<<<< HEAD
   ```bash
   Create a user on localhost
   Set username and password in application.properties
@@ -76,7 +75,6 @@ Applications function wise offer all the necessary functions like creating, edit
 4. Establish backend:
     ```bash
     Run "BackendApplication" through InteliJ
->>>>>>> 4d405d6e1941970cc2a9075e0b306bc9feabecee
 
 ## Contributing.
 All changes must be reviewed via Pull Requests.
