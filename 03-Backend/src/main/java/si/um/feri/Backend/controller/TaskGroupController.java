@@ -41,14 +41,14 @@ public class TaskGroupController {
                 }).orElseThrow(() -> new RuntimeException("TaskGroup not found with id:" + id));
     }
 
-    @DeleteMapping("/group-del/{id}")
+    @DeleteMapping("group/{id}")
     String deleteGroup(@PathVariable int id) {
         logger.info("Deleting group with id:" + id);
         taskGroupRepository.deleteById(id);
-        return "Deleted group with id:" + id;
+        return "Group with id: " + id + " has been deleted.";
     }
 
-    @PostMapping("/group-add")
+    @PostMapping("/group")
     TaskGroup addGroup(@RequestBody TaskGroup newTaskGroup) {
         logger.info("Adding group with name:" + newTaskGroup.getGroupName());
         return taskGroupRepository.save(newTaskGroup);

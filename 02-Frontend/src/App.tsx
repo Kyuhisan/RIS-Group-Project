@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddTask from "./tasks/AddTask";
 import EditTask from "./tasks/EditTask";
+import AddGroup from "./groups/AddGroup";
+import EditGroup from "./groups/EditGroup";
 
 function App() {
   return (
@@ -11,7 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/AddTask" element={<AddTask />} />
+          <Route path="/AddGroup" element={<AddGroup />} />
           <Route path="/EditTask/:id" element={<EditTask />} />
+          <Route path="/EditGroup/:id" element={<EditGroup />} />
         </Routes>
       </Router>
     </>

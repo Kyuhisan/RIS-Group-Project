@@ -1,14 +1,9 @@
 package si.um.feri.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-package si.um.feri.Backend.model;
-
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +18,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "taskGroup_id")
+    @JsonBackReference  // Prevents infinite recursion when serializing TaskGroup
     private TaskGroup taskGroup;
 
     @Enumerated(EnumType.STRING)
