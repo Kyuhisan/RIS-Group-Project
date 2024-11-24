@@ -50,31 +50,16 @@ Applications function wise offer all the necessary functions like creating, edit
 
 ### Installation Steps
 1. Clone the repository:
-   ```bash
    git clone https://github.com/Kyuhisan/RIS-Group-Project.git
    cd RIS-Group-Project
 2. Create MySQL DB:
-  ```bash
   Create a user on localhost
   Set username and password in application.properties
   Run RIS_Project.sql
 3. Establish frontend:
-  ```bash
   Run "npm install" to get the modules
 4. Establish backend:
-  ```bash
   Run "BackendApplication" through InteliJ 
-=======
-    ```bash
-    Create a user on localhost
-    Set username and password in application.properties
-    Run RIS_Project.sql
-3. Establish frontend:
-    ```bash
-    Run "npm install" to get the modules
-4. Establish backend:
-    ```bash
-    Run "BackendApplication" through InteliJ
 
 ## Contributing.
 All changes must be reviewed via Pull Requests.
