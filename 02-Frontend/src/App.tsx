@@ -15,6 +15,7 @@ function App() {
           <Route path="/AddTask" element={<AddTask />} />
           <Route path="/AddGroup" element={<AddGroup />} />
           <Route path="/EditTask/:id" element={<EditTask />} />
+          <Route path="/AddTask/:groupId" element={<AddTask />} />
           <Route path="/EditGroup/:id" element={<EditGroup />} />
         </Routes>
       </Router>

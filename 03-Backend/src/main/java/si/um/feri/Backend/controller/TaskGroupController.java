@@ -29,7 +29,7 @@ public class TaskGroupController {
                 .orElseThrow(() -> new RuntimeException("TaskGroup not found with id:" + id));
     }
 
-    @PutMapping("/group-upd/{id}")
+    @PutMapping("/group/{id}")
     TaskGroup updateGroup(@RequestBody TaskGroup newTaskGroup, @PathVariable int id) {
         logger.info("Updating group with id:" + id);
         return taskGroupRepository.findById(id).map(

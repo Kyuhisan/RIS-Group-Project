@@ -2,12 +2,18 @@ import React, { useState, ChangeEvent } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+enum TaskStatus {
+  IN_PROGRESS = "IN_PROGRESS",
+  FINISHED = "FINISHED",
+  NOT_STARTED = "NOT_STARTED",
+}
+
 interface Task {
   id: number;
   taskName: string;
   taskDescription: string;
-  taskGroup: string;
-  status: boolean;
+  taskGroup: TaskGroup | null;
+  status: TaskStatus;
 }
 
 interface TaskGroup {

@@ -49,7 +49,8 @@ export default function Home() {
   const deleteTask = async (id: number) => {
     try {
       await axios.delete(`http://localhost:8888/api/task/${id}`);
-      LoadTasks(); // Reload tasks after deletion
+      LoadTasks();
+      LoadGroups();
     } catch (error) {
       console.error("Error deleting task:", error);
     }
@@ -58,7 +59,7 @@ export default function Home() {
   const deleteGroup = async (id: number) => {
     try {
       await axios.delete(`http://localhost:8888/api/group/${id}`);
-      LoadGroups(); // Reload tasks after deletion
+      LoadGroups();
     } catch (error) {
       console.error("Error deleting group:", error);
     }
@@ -122,10 +123,29 @@ export default function Home() {
                     {group.listOfTasks.map((task) => (
                       <li key={task.id}>
                         {task.taskName} {task.status}
+                        <Link
+                          className="btn btn-outline-primary"
+                          to={`/EditTask/${task.id}`}
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          className="btn btn-outline-primary"
+                          onClick={() => deleteTask(task.id)}
+                        >
+                          Delete
+                        </button>
                       </li>
                     ))}
                   </td>
                   <td>
+                    <Link
+                      className="btn btn-outline-primary"
+                      to={`/AddTask/${group.id}`}
+                    >
+                      +
+                    </Link>
+
                     <Link
                       className="btn btn-outline-primary mx-2"
                       to={`/EditGroup/${group.id}`}
