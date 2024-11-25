@@ -3,12 +3,18 @@ import axios from "axios";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
+enum TaskStatus {
+  IN_PROGRESS = "IN_PROGRESS",
+  FINISHED = "FINISHED",
+  NOT_STARTED = "NOT_STARTED",
+}
+
 interface Task {
   id: number;
   taskName: string;
   taskDescription: string;
-  taskGroup: string;
-  status: boolean;
+  taskGroup: TaskGroup | null;
+  status: TaskStatus;
 }
 
 interface TaskGroup {
@@ -65,13 +71,6 @@ export default function Home() {
     }
   };
 
-  const filteredTasks = tasks.filter((task) => {
-    const taskValues = `${task.id} ${task.taskName} ${task.taskDescription} ${
-      task.taskGroup
-    } ${task.status ? "Completed" : "Pending"}`.toLowerCase();
-    return taskValues.includes(search.toLowerCase());
-  });
-
   const filteredGroups = groups.filter((group) => {
     const groupValues =
       `${group.id} ${group.groupName} ${group.groupProgress} ${group.listOfTasks}`.toLowerCase();
@@ -100,7 +99,7 @@ export default function Home() {
       </div>
 
       <div id="groupsContainer">
-        <table className="table">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th scope="col">Group ID</th>
@@ -112,55 +111,100 @@ export default function Home() {
           </thead>
           <tbody>
             {filteredGroups.length > 0 ? (
-              filteredGroups.map((group) => (
-                <tr key={group.id}>
-                  <th scope="row">{group.id}</th>
-                  <td>{group.groupName}</td>
-                  <td>
-                    {(Math.round(group.groupProgress * 100) / 100).toFixed(2)}
-                  </td>
-                  <td>
-                    {group.listOfTasks.map((task) => (
-                      <li key={task.id}>
-                        {task.taskName} {task.status}
-                        <Link
-                          className="btn btn-outline-primary"
-                          to={`/EditTask/${task.id}`}
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          className="btn btn-outline-primary"
-                          onClick={() => deleteTask(task.id)}
-                        >
-                          Delete
-                        </button>
-                      </li>
-                    ))}
-                  </td>
-                  <td>
-                    <Link
-                      className="btn btn-outline-primary"
-                      to={`/AddTask/${group.id}`}
-                    >
-                      +
-                    </Link>
+              filteredGroups.map((group) => {
+                const totalTasks = group.listOfTasks.length;
+                const finishedTasks = group.listOfTasks.filter(
+                  (task) => task.status === TaskStatus.FINISHED
+                ).length;
+                const progressPercentage =
+                  totalTasks > 0 ? (finishedTasks / totalTasks) * 100 : 0;
 
-                    <Link
-                      className="btn btn-outline-primary mx-2"
-                      to={`/EditGroup/${group.id}`}
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      className="btn btn-danger mx-2"
-                      onClick={() => deleteGroup(group.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
+                return (
+                  <tr className="align-middle" key={group.id}>
+                    <th scope="row">{group.id}</th>
+                    <td>{group.groupName}</td>
+                    <td>
+                      <div className="mb-2">
+                        <div className="progress" style={{ height: "20px" }}>
+                          <div
+                            className={`progress-bar ${
+                              progressPercentage === 100
+                                ? "bg-success"
+                                : progressPercentage > 50
+                                ? "bg-warning"
+                                : "bg-danger"
+                            }`}
+                            role="progressbar"
+                            style={{
+                              width: `${progressPercentage.toFixed(2)}%`,
+                            }}
+                            aria-valuenow={progressPercentage}
+                            aria-valuemin={0}
+                            aria-valuemax={100}
+                          >
+                            {progressPercentage.toFixed(0)}%
+                          </div>
+                        </div>
+                      </div>
+                      {/* {(Math.round(group.groupProgress * 100) / 100).toFixed(2)} */}
+                    </td>
+
+                    <td className="col-md-6">
+                      <table className="table table-striped text-center table-sm ">
+                        <thead>
+                          <tr>
+                            <th scope="col">Task Name</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody className="align-middle">
+                          {group.listOfTasks.map((task) => (
+                            <tr key={task.id}>
+                              <td>{task.taskName}</td>
+                              <td>{task.status}</td>
+                              <td>{task.taskDescription}</td>
+                              <td>
+                                <div className="d-inline-flex justify-content-end">
+                                  <button
+                                    className="btn btn-danger btn-danger mx-2"
+                                    onClick={() => deleteTask(task.id)}
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </td>
+
+                    <td>
+                      <Link
+                        className="btn btn-outline-primary"
+                        to={`/AddTask/${group.id}`}
+                      >
+                        +
+                      </Link>
+
+                      <Link
+                        className="btn btn-outline-primary mx-2"
+                        to={`/EditGroup/${group.id}`}
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => deleteGroup(group.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
                 <td colSpan={6} className="text-center">

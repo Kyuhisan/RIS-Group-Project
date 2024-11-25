@@ -229,3 +229,8 @@ h1 {
         font-size: 12px;
     }
 }
+
+.table td,
+.table th {
+    text-align: center;   
+}

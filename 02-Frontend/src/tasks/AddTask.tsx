@@ -13,7 +13,7 @@ interface Task {
   taskName: string;
   taskDescription: string;
   taskGroup: TaskGroup | null;
-  taskStatus: TaskStatus;
+  status: TaskStatus;
 }
 
 interface TaskGroup {
@@ -32,7 +32,7 @@ export default function AddTask() {
     taskName: "",
     taskDescription: "",
     taskGroup: null,
-    taskStatus: TaskStatus.NOT_STARTED,
+    status: TaskStatus.NOT_STARTED,
   });
 
   const [group, setGroup] = useState<TaskGroup | null>(null); // Store the group details
@@ -113,13 +113,13 @@ export default function AddTask() {
                   value={group.groupName}
                   disabled // Display the group name, but make it non-editable
                 />
-                <label htmlFor="taskStatus" className="form-label">
+                <label htmlFor="status" className="form-label">
                   Status
                 </label>
                 <select
                   className="form-select"
-                  name="taskStatus"
-                  value={task.taskStatus}
+                  name="status"
+                  value={task.status}
                   onChange={onInputChange}
                 >
                   {Object.values(TaskStatus).map((status) => (

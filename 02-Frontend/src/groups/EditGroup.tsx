@@ -12,7 +12,7 @@ interface Task {
   id: number;
   taskName: string;
   taskDescription: string;
-  taskStatus: TaskStatus;
+  status: TaskStatus;
 }
 
 interface Group {
@@ -138,14 +138,14 @@ export default function EditGroup() {
                     <label className="form-label">Status</label>
                     <select
                       className="form-select"
-                      value={task.taskStatus}
+                      value={task.status}
                       onChange={(e) =>
-                        onTaskChange(task.id, "taskStatus", e.target.value)
+                        onTaskChange(task.id, "status", e.target.value)
                       }
                     >
                       {Object.values(TaskStatus).map((status) => (
                         <option key={status} value={status}>
-                          {status.replace("_", " ").toLowerCase()}
+                          {status.replace("_", " ")}
                         </option>
                       ))}
                     </select>
