@@ -282,3 +282,23 @@ Task action	| Task action allows the user to edit or delete an individual task.
 
 ## Class Diagram
 ![To-Do Class Diagram - Final 3 vpd (1) vpd (1)](https://github.com/user-attachments/assets/05f1dc15-b90d-4782-9729-53e8efb43a84)
+
+## New Functionality: Progress Bar
+
+### Description
+We have implemented a new progress bar functionality in the Advanced TO-DO List application. This feature visually represents the progress of tasks within each task group, providing a clear and immediate understanding of how much work has been completed.
+
+### How It Works
+The progress bar calculates the percentage of completed tasks within each task group. It dynamically updates based on the status of the tasks:
+- **Green**: 100% completed tasks.
+- **Yellow**: More than 50% but less than 100% completed tasks.
+- **Red**: 50% or fewer completed tasks.
+
+The progress bar is displayed within each task group's row in the main table, showing the exact percentage of tasks completed.
+
+### How to Test the New Functionality
+1. **Run the Application**: Ensure your development server is running.
+2. **Navigate to the Home Page**: Open the application in your browser and go to the home page.
+3. **View Task Groups**: You will see a table listing all task groups. Each group will have a progress bar indicating the completion percentage of its tasks.
+4. **Update Task Status**: Change the status of tasks within a group to see the progress bar update in real-time.
+5. **Create and Delete Tasks**: Add new tasks or delete existing ones to observe changes in the progress bar.
