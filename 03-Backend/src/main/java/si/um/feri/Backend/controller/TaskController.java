@@ -1,11 +1,12 @@
 package si.um.feri.Backend.controller;
 
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.repository.TaskRepository;
-import java.util.Optional;
+
 import java.util.logging.Logger;
 
 @RestController
@@ -28,35 +29,41 @@ public class TaskController {
     }
 
     @GetMapping("/task/{id}")
-    Task getTaskById(@PathVariable int id) {
+    public Task getTaskById(@PathVariable int id) {
         logger.info("Getting task with id:" + id);
         return taskRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Task not found with id:" + id));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id:" + id));
     }
 
-    @PutMapping("task/{id}")
-    Task updateTask(@RequestBody Task newTask, @PathVariable int id) {
+    @PutMapping("/task/{id}")
+    public Task updateTask(@RequestBody Task newTask, @PathVariable int id) {
         logger.info("Updating task with id:" + id);
         return taskRepository.findById(id)
                 .map(task -> {
                     task.setTaskName(newTask.getTaskName());
                     task.setTaskDescription(newTask.getTaskDescription());
-                    task.setTaskGroup(newTask.getTaskGroup());;
+                    task.setTaskGroup(newTask.getTaskGroup());
                     task.setStatus(newTask.getStatus());
                     return taskRepository.save(task);
-                }).orElseThrow(() -> new RuntimeException("Task not found with id:" + id));
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id:" + id));
     }
 
-    @DeleteMapping("task/{id}")
-    String deleteTask(@PathVariable int id) {
+    @DeleteMapping("/task/{id}")
+    public String deleteTask(@PathVariable int id) {
         logger.info("Deleting task with id:" + id);
+        if (!taskRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id:" + id);
+        }
         taskRepository.deleteById(id);
         return "Task with id: " + id + " has been deleted.";
     }
 
     @PostMapping("/tasks")
-    Task newTask(@RequestBody Task newTask) {
+    public Task newTask(@RequestBody Task newTask) {
         logger.info("Creating new task");
+        if (newTask.getTaskName() == null || newTask.getTaskName().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Task name is required");
+        }
         return taskRepository.save(newTask);
     }
 }

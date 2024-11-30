@@ -66,7 +66,8 @@ class TaskControllerDynamicTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(String.format("{\"taskName\":\"%s\",\"taskDescription\":\"%s\",\"status\":\"%s\"}",
                                     task.getTaskName(), task.getTaskDescription(), task.getStatus().name())))
-                            .andExpect(status().isBadRequest());
+                            .andExpect(status().isBadRequest())
+                            .andExpect(jsonPath("$.message").value("Task name is required"));
                 }))
                 .toList();
     }
