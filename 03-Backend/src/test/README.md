@@ -33,9 +33,9 @@ These tests ensure that our application functions correctly under different cond
 
 | Team Member       | Responsibility |
 |-------------------|----------------|
-| **Filip Rap**   | Testing `TaskControllerTest`, `TaskControllerParameterizedTest`, `TaskControllerRepeatedTest`, `TaskControllerDynamicTest` |
-| **Matic Kuhar**    | Testing `TaskGroupController`, `TaskGroupNestedTest` |
-| **Rene Laufer**   | Testing `TaskModelTest`, `TaskGroupModelTest` |
+| **Filip Rap**   | Testing `TaskController` |
+| **Matic Kuhar**    | Testing `TaskGroupController` |
+| **Rene Laufer**   | Testing `TaskModel`, `TaskGroupModel`, `TaskRepository`, `TaskGroupRepository`, `DataInitializer` |
 
 ---
 
@@ -43,14 +43,14 @@ These tests ensure that our application functions correctly under different cond
 
 ### Test Results
 
-All tests were successfully executed without any errors, meaning the application correctly handles all core functionalities. The tests covered the following scenarios:
-1. **Positive Scenarios**: We tested functionalities where we expected a successful output, such as retrieving a task by ID, creating new tasks, updating task statuses, and deleting tasks.
-2. **Negative Scenarios**: We tested edge cases, such as searching for non-existent tasks, and ensured the application correctly returns errors or empty responses.
+The initial test execution resulted in nearly all negative test scenarios failing, especially with the additional "complex" functionality of task grouping. This was due to insufficient or non-existant error handling in our code, which we by the time of the latest project version already solved.
+1. **Positive Scenarios**: We tested functionalities where we expected a successful output, such as retrieving a task by ID, creating new tasks, updating task statuses, and deleting tasks. Similarily tests for group functionality were also executed in similar matter.
+2. **Negative Scenarios**: We tested edge cases, such as searching for non-existent tasks, and ensured the application correctly returns errors or empty responses as well as group tests for each group endpoint. This is where we had the most issues as we didn't have sufficient error handling ready.
 3. **Mixed Scenarios**: Using parameterized and repeated tests, we tested the application under various conditions to ensure it behaves consistently and without errors.
 
 ### Errors Found
 
-During testing, we did not find any errors or unexpected behaviors when it comes to positive testing scenarios. But when we implemented negative testing scenarios most of them failed and we had to update our code to correctly handle any possible error, for which we used GlobalExceptionHandler class which forwarded errors as responses and correctly threw errors based on the issues and status codes.
+During testing, we did not find any errors or unexpected behaviors when it comes to positive testing scenarios. But when we implemented negative testing scenarios most of them failed and we had to update our code to correctly handle any possible error, for which we used GlobalExceptionHandler class which forwarded errors as responses and correctly threw errors based on the issues and status codes. The endpoints were then updated to work with the GlobalExceptionHandler as a intermediate.
 
 ---
 
