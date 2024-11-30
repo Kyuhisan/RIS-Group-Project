@@ -1,4 +1,4 @@
-package si.um.feri.Backend.controller;
+package si.um.feri.Backend.controller.Task;
 
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import si.um.feri.Backend.controller.TaskController;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskStatus;
 import si.um.feri.Backend.repository.TaskRepository;
