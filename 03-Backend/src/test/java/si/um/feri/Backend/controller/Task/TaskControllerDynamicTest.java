@@ -50,4 +50,24 @@ class TaskControllerDynamicTest {
                 }))
                 .toList();
     }
+
+    @TestFactory
+    Collection<DynamicTest> dynamicTaskCreationNegativeTests() {
+        List<Task> tasks = Arrays.asList(
+                new Task("", "Description 1", null, TaskStatus.IN_PROGRESS), // Empty task name
+                new Task("Dynamic Task 2", "", null, TaskStatus.NOT_STARTED) // Empty task description
+        );
+
+        return tasks.stream()
+                .map(task -> DynamicTest.dynamicTest("Create Task with invalid data: " + task.getTaskName(), () -> {
+                    Mockito.when(taskRepository.save(Mockito.any(Task.class))).thenReturn(task);
+
+                    mockMvc.perform(post("/tasks")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(String.format("{\"taskName\":\"%s\",\"taskDescription\":\"%s\",\"status\":\"%s\"}",
+                                    task.getTaskName(), task.getTaskDescription(), task.getStatus().name())))
+                            .andExpect(status().isBadRequest());
+                }))
+                .toList();
+    }
 }
