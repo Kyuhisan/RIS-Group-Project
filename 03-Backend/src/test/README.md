@@ -50,7 +50,7 @@ All tests were successfully executed without any errors, meaning the application
 
 ### Errors Found
 
-During testing, we did not find any errors or unexpected behaviors. All functionalities worked as expected.
+During testing, we did not find any errors or unexpected behaviors when it comes to positive testing scenarios. But when we implemented negative testing scenarios most of them failed and we had to update our code to correctly handle any possible error, for which we used GlobalExceptionHandler class which forwarded errors as responses and correctly threw errors based on the issues and status codes.
 
 ---
 
