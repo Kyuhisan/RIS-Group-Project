@@ -146,6 +146,7 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Delete Group - Success")
         @Order(6)
         void deleteGroup() throws Exception {
+            Mockito.when(taskGroupRepository.existsById(1)).thenReturn(true);
             Mockito.doNothing().when(taskGroupRepository).deleteById(1);
 
             mockMvc.perform(delete("/group/1"))
@@ -176,7 +177,8 @@ class TaskGroupControllerUnitTest {
             mockMvc.perform(post("/group")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content("{\"groupProgress\":75.5}")) // Missing groupName
-                    .andExpect(status().isBadRequest());
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().string("Group name is required."));
         }
 
         @Test
@@ -196,10 +198,11 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Delete Group - Not Found")
         @Order(4)
         void deleteGroup() throws Exception {
-            Mockito.doThrow(new RuntimeException("TaskGroup not found")).when(taskGroupRepository).deleteById(999);
+            Mockito.when(taskGroupRepository.existsById(999)).thenReturn(false);
 
             mockMvc.perform(delete("/group/999"))
-                    .andExpect(status().is4xxClientError());
+                    .andExpect(status().isNotFound())
+                    .andExpect(content().string("TaskGroup not found with id:999"));
         }
     }
 }
