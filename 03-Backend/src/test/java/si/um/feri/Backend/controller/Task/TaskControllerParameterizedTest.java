@@ -117,7 +117,7 @@ class TaskControllerTest {
         Task task = new Task("Task 1", "Description", null, TaskStatus.IN_PROGRESS);
         Mockito.when(taskRepository.save(Mockito.any(Task.class))).thenReturn(task);
 
-        mockMvc.perform(post("/task")
+        mockMvc.perform(post("/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"taskName\":\"Task 1\",\"taskDescription\":\"Description\",\"status\":\"IN_PROGRESS\"}"))
                 .andExpect(status().isOk())
