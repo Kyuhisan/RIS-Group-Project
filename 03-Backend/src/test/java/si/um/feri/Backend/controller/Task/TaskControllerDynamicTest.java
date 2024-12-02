@@ -1,10 +1,7 @@
 package si.um.feri.Backend.controller.Task;
 
 import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,10 +17,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +46,9 @@ class TaskControllerDynamicTest {
                             .content(String.format("{\"taskName\":\"%s\",\"taskDescription\":\"%s\",\"status\":\"%s\"}",
                                     task.getTaskName(), task.getTaskDescription(), task.getStatus().name())))
                             .andExpect(status().isOk())
-                            .andExpect(jsonPath("$.taskName").value(task.getTaskName()));
+                            .andExpect(jsonPath("$.taskName").value(task.getTaskName()))
+                            .andExpect(jsonPath("$.taskDescription").value(task.getTaskDescription()))
+                            .andExpect(jsonPath("$.status").value(task.getStatus().name()));
                 }))
                 .toList();
     }
@@ -77,6 +73,4 @@ class TaskControllerDynamicTest {
                 }))
                 .toList();
     }
-
-   
 }
