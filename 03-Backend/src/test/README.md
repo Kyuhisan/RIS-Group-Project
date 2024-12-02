@@ -8,7 +8,10 @@ In this task, we performed unit testing for our Spring Boot-based application, w
 
 1. **Controller Testing**:
    - **TaskControllerTest**: We tested basic CRUD operations for `TaskController`, including creating, deleting, updating, and retrieving tasks.
+   - **TaskRepositoryTest**: We tested the `TaskRepository` to ensure correct task storage and retrieval from the database.
+   `TaskRepository` was tested simultaneously with `TaskController`. 
    - **TaskGroupControllerTest**: We tested CRUD operations for `TaskGroupController` to ensure the correct handling of tasks associated with task groups.
+   - **TaskGroupRepositoryTest**: We tested `TaskGroupRepository` to ensure task groups are correctly saved and retrieved from the database. `TaskGroupRepository` was tested simultaneously with `TaskGroupController`.
 
 2. **Testing with Different Annotations**:
    - **TaskControllerParameterizedTest**: We tested various scenarios for the `getTaskById` method using parameterized tests to check how the application behaves under different conditions.
@@ -19,9 +22,6 @@ In this task, we performed unit testing for our Spring Boot-based application, w
    - **TaskModelTest**: We verified if tasks are correctly created within the `Task` model, including checking for data validation.
    - **TaskGroupModelTest**: We tested the correct operation of the `TaskGroup` model and validated whether tasks are correctly associated with task groups.
 
-4. **Repository Testing**:
-   - **TaskRepositoryTest**: We tested the `TaskRepository` to ensure correct task storage and retrieval from the database.
-   - **TaskGroupRepositoryTest**: We tested `TaskGroupRepository` to ensure task groups are correctly saved and retrieved from the database.
 
 ### Why Are These Tests Important?
 
@@ -35,7 +35,7 @@ These tests ensure that our application functions correctly under different cond
 |-------------------|----------------|
 | **Filip Rap**   | Testing `TaskController` |
 | **Matic Kuhar**    | Testing `TaskGroupController` |
-| **Rene Laufer**   | Testing `TaskModel`, `TaskGroupModel`, `TaskRepository`, `TaskGroupRepository`, `DataInitializer` |
+| **Rene Laufer**   | Testing `TaskModel`, `TaskGroupModel`, `DataInitializer` |
 
 ---
 
