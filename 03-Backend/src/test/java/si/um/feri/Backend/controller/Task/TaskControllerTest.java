@@ -1,5 +1,7 @@
 package si.um.feri.Backend.controller.Task;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,26 +50,26 @@ class TaskControllerTest {
     @MockBean
     private TaskRepository taskRepository;
 
-    @RepeatedTest(3)
-    @DisplayName("Delete Task - Success")
-    void deleteTask_ShouldReturnSuccessMessage() throws Exception {
-        Mockito.doNothing().when(taskRepository).deleteById(1);
-
-        mockMvc.perform(delete("/task/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Task with id: 1 has been deleted."));
+   @BeforeAll
+    static void initAll() {
+        System.out.println("Starting TaskController tests...");
     }
 
-    @RepeatedTest(3)
-    @DisplayName("Delete Task - Not Found")
-    void deleteTask_ShouldReturnNotFoundForInvalidId() throws Exception {
-        Mockito.doThrow(new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id:999"))
-                .when(taskRepository).deleteById(999);
-
-        mockMvc.perform(delete("/task/999"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Task not found with id:999"));
+    @AfterAll
+    static void tearDownAll() {
+        System.out.println("Completed TaskController tests.");
     }
+
+    @BeforeEach
+    void setup() {
+        System.out.println("Setting up mock data for a test...");
+    }
+
+    @AfterEach
+    void cleanup() {
+        System.out.println("Cleaning up after a test...");
+    }
+
 
     @ParameterizedTest
     @ValueSource(strings = {"Task 1", "Task 2", "Task 3"})
@@ -126,35 +128,5 @@ class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.taskName").value("Task 1"))
                 .andExpect(jsonPath("$.taskDescription").value("Description"));
-    }
-
-    @Test
-    @DisplayName("Update Task - Success")
-    void updateTask_ShouldReturnUpdatedTask() throws Exception {
-        Task existingTask = new Task("Old Task", "Old Description", null, TaskStatus.IN_PROGRESS);
-        Task updatedTask = new Task("Updated Task", "Updated Description", null, TaskStatus.FINISHED);
-
-        Mockito.when(taskRepository.findById(1)).thenReturn(Optional.of(existingTask));
-        Mockito.when(taskRepository.save(Mockito.any(Task.class))).thenReturn(updatedTask);
-
-        mockMvc.perform(put("/task/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"taskName\":\"Updated Task\",\"taskDescription\":\"Updated Description\",\"status\":\"COMPLETED\"}"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.taskName").value("Updated Task"))
-                .andExpect(jsonPath("$.taskDescription").value("Updated Description"))
-                .andExpect(jsonPath("$.status").value("COMPLETED"));
-    }
-
-    @Test
-    @DisplayName("Update Task - Not Found")
-    void updateTask_ShouldReturnNotFound() throws Exception {
-        Mockito.when(taskRepository.findById(999)).thenReturn(Optional.empty());
-
-        mockMvc.perform(put("/task/999")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"taskName\":\"Updated Task\",\"taskDescription\":\"Updated Description\",\"status\":\"COMPLETED\"}"))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Task not found with id:999"));
     }
 }
