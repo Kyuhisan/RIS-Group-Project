@@ -30,8 +30,6 @@ class TaskControllerTest {
     @MockBean
     private TaskRepository taskRepository;
 
-
-
     @RepeatedTest(3)
     void deleteTask_ShouldReturnSuccessMessage() throws Exception {
         Mockito.doNothing().when(taskRepository).deleteById(1);
@@ -47,6 +45,6 @@ class TaskControllerTest {
 
         mockMvc.perform(delete("/task/999"))
                 .andExpect(status().isNotFound())
-                .andExpect(content().string("Task not found"));
+                .andExpect(content().string("Task not found with id:999"));
     }
 }
