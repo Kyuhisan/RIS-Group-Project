@@ -25,6 +25,12 @@ public class Task {
     private TaskStatus status;
 
     public Task(String taskName, String taskDescription, TaskGroup taskGroup, TaskStatus status) {
+        if (taskName == null || taskName.isEmpty()) {
+            throw new IllegalArgumentException("Task name cannot be null or empty");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Task status cannot be null");
+        }
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskGroup = taskGroup;

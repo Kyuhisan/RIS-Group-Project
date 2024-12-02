@@ -1,4 +1,4 @@
-package si.um.feri.Backend;
+package si.um.feri.Backend.config;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

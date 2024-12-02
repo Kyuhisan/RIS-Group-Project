@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -24,6 +26,6 @@ public class TaskGroup {
     public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks) {
         this.groupName = groupName;
         this.groupProgress = groupProgress;
-        this.listOfTasks = listOfTasks;
+        this.listOfTasks = (listOfTasks != null) ? listOfTasks : Collections.emptyList();
     }
 }

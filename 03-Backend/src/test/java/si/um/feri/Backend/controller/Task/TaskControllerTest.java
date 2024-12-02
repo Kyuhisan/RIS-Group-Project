@@ -1,4 +1,4 @@
-package si.um.feri.Backend.controller;
+package si.um.feri.Backend.controller.Task;
 
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -14,9 +14,12 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.server.ResponseStatusException;
+import si.um.feri.Backend.controller.TaskController;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskStatus;
 import si.um.feri.Backend.repository.TaskRepository;
@@ -129,7 +132,7 @@ class TaskControllerTest {
     @DisplayName("Update Task - Success")
     void updateTask_ShouldReturnUpdatedTask() throws Exception {
         Task existingTask = new Task("Old Task", "Old Description", null, TaskStatus.IN_PROGRESS);
-        Task updatedTask = new Task("Updated Task", "Updated Description", null, TaskStatus.COMPLETED);
+        Task updatedTask = new Task("Updated Task", "Updated Description", null, TaskStatus.FINISHED);
 
         Mockito.when(taskRepository.findById(1)).thenReturn(Optional.of(existingTask));
         Mockito.when(taskRepository.save(Mockito.any(Task.class))).thenReturn(updatedTask);
