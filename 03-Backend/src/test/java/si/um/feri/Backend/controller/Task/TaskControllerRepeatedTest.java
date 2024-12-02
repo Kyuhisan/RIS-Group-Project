@@ -30,26 +30,7 @@ class TaskControllerTest {
     @MockBean
     private TaskRepository taskRepository;
 
-    @ParameterizedTest
-    @ValueSource(strings = {"Task 1", "Task 2", "Task 3"})
-    void getAllTasks_ShouldContainTaskNames(String taskName) throws Exception {
-        Task task = new Task(taskName, "Description", null, TaskStatus.IN_PROGRESS);
-        Mockito.when(taskRepository.findAll()).thenReturn(Arrays.asList(task));
 
-        mockMvc.perform(get("/tasks"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].taskName").value(taskName));
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"Invalid Task 1", "Invalid Task 2"})
-    void getAllTasks_ShouldReturnEmptyListForInvalidTasks(String taskName) throws Exception {
-        Mockito.when(taskRepository.findAll()).thenReturn(Collections.emptyList());
-
-        mockMvc.perform(get("/tasks"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isEmpty());
-    }
 
     @RepeatedTest(3)
     void deleteTask_ShouldReturnSuccessMessage() throws Exception {
