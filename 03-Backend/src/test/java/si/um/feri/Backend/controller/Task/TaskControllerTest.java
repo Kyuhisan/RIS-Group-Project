@@ -43,7 +43,7 @@ class TaskControllerTest {
     @MockBean
     private TaskRepository taskRepository;
 
-   @BeforeAll
+    @BeforeAll
     static void initAll() {
         System.out.println("Starting TaskController tests...");
     }
@@ -63,7 +63,7 @@ class TaskControllerTest {
         System.out.println("Cleaning up after a test...");
     }
 
-
+    // Testira, ali metoda getAllTasks vrne seznam nalog, ki vsebujejo določena imena nalog
     @ParameterizedTest
     @ValueSource(strings = {"Task 1", "Task 2", "Task 3"})
     @DisplayName("Get All Tasks - Contains Task Names")
@@ -76,6 +76,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$[0].taskName").value(taskName));
     }
 
+    // Testira, ali metoda getAllTasks vrne prazen seznam, če ni najdenih nalog
     @ParameterizedTest
     @ValueSource(strings = {"Invalid Task 1", "Invalid Task 2"})
     @DisplayName("Get All Tasks - Return Empty List for Invalid Tasks")
@@ -87,6 +88,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$").isEmpty());
     }
 
+    // Testira, ali metoda getTaskById vrne nalogo, če je najdena po ID-ju
     @Test
     @DisplayName("Get Task by ID - Success")
     void getTaskById_ShouldReturnTask() throws Exception {
@@ -99,6 +101,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.taskDescription").value("Description"));
     }
 
+    // Testira, ali metoda getTaskById vrne status 404, če naloga ni najdena po ID-ju
     @Test
     @DisplayName("Get Task by ID - Not Found")
     void getTaskById_ShouldReturnNotFound() throws Exception {
@@ -109,6 +112,7 @@ class TaskControllerTest {
                 .andExpect(content().string("Task not found with id:999"));
     }
 
+    // Testira, ali metoda createTask uspešno ustvari novo nalogo
     @Test
     @DisplayName("Create Task - Success")
     void createTask_ShouldReturnCreatedTask() throws Exception {
@@ -121,5 +125,16 @@ class TaskControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.taskName").value("Task 1"))
                 .andExpect(jsonPath("$.taskDescription").value("Description"));
+    }
+    @Test
+    @DisplayName("Create Task - Invalid Input")
+    void createTask_ShouldReturnBadRequestForInvalidInput() throws Exception {
+        // Poskusimo ustvariti nalogo z neveljavnim JSON vhodom (manjka taskName)
+        String invalidTaskJson = "{\"taskDescription\":\"Description\",\"status\":\"IN_PROGRESS\"}";
+
+        mockMvc.perform(post("/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(invalidTaskJson))
+                .andExpect(status().isBadRequest());
     }
 }
