@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import si.um.feri.Backend.controller.TaskGroupController;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskGroup;
+import si.um.feri.Backend.model.TaskStatus;
 import si.um.feri.Backend.repository.TaskGroupRepository;
 
 import java.nio.file.Path;
@@ -96,8 +97,8 @@ class TaskGroupControllerUnitTest {
         @Order(3)
         void getGroupTasks() throws Exception {
             TaskGroup group = new TaskGroup("Group A", 75.5, null);
-            Task task1 = new Task("Task 1", "Description 1", group, null);
-            Task task2 = new Task("Task 2", "Description 2", group, null);
+            Task task1 = new Task("Task 1", "Description 1", group, TaskStatus.IN_PROGRESS);
+            Task task2 = new Task("Task 2", "Description 2", group, TaskStatus.FINISHED);
             group.setListOfTasks(Arrays.asList(task1, task2));
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(group));
