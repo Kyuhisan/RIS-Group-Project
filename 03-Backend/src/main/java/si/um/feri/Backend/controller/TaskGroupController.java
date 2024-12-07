@@ -8,7 +8,9 @@ import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskGroup;
 import si.um.feri.Backend.repository.TaskGroupRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @RestController
@@ -26,10 +28,34 @@ public class TaskGroupController {
     }
 
     @GetMapping("/group/{id}")
-    public TaskGroup getGroupById(@PathVariable int id) {
+    public Map<String, Object> getGroupById(@PathVariable int id) {
         logger.info("Getting group with id: " + id);
-        return taskGroupRepository.findById(id)
+        TaskGroup taskGroup = taskGroupRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with id:" + id));
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", taskGroup.getId());
+        response.put("groupName", taskGroup.getGroupName());
+        response.put("groupProgress", taskGroup.getGroupProgress());
+        response.put("listOfTasks", taskGroup.getListOfTasks());
+        response.put("fileBlob", taskGroup.getFileBlob());
+        response.put("fileName", taskGroup.getFileName());
+        response.put("containsFile", taskGroup.getFileBlob() != null && taskGroup.getFileBlob().length > 0);
+
+        return response;
+    }
+
+    @GetMapping("/group/{id}/has-file")
+    public Map<String, Boolean> doesGroupContainFile(@PathVariable int id) {
+        logger.info("Checking if TaskGroup with ID: " + id + " contains a file");
+        TaskGroup taskGroup = taskGroupRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with ID: " + id));
+
+        boolean containsFile = taskGroup.getFileBlob() != null && taskGroup.getFileBlob().length > 0;
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("containsFile", containsFile);
+        return response;
     }
 
     @PutMapping("/group/{id}")
@@ -39,6 +65,20 @@ public class TaskGroupController {
             taskGroup.setGroupName(newTaskGroup.getGroupName());
             taskGroup.setGroupProgress(newTaskGroup.getGroupProgress());
             taskGroup.setListOfTasks(newTaskGroup.getListOfTasks());
+            return taskGroupRepository.save(taskGroup);
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with id:" + id));
+    }
+
+    @PatchMapping("/group/{id}/file")
+    public TaskGroup updateGroupFile(@PathVariable int id, @RequestBody TaskGroup newTaskGroup) {
+        logger.info("Updating file for group with id: " + id);
+        return taskGroupRepository.findById(id).map(taskGroup -> {
+            if(newTaskGroup.getFileBlob() != null) {
+                taskGroup.setFileBlob(newTaskGroup.getFileBlob());
+            }
+            if (newTaskGroup.getFileName() != null) {
+                taskGroup.setFileName(newTaskGroup.getFileName());
+            }
             return taskGroupRepository.save(taskGroup);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with id:" + id));
     }
