@@ -47,3 +47,14 @@
    - **Tasks:**
      - Update the technical documentation and user guides.
    - **Status:** Done (2 points)
+
+### Use of GitHub Issues and Project Board:
+- **GitHub Issues:** Each task was created as an issue on GitHub. 
+- **Project Board:** We used a GitHub Project Board with columns **To do**, **In progress**, and **Done** to track the status of each issue. Issues were moved across columns based on their progress.
+
+### Progress Tracking:
+- **Daily Standups:** We held daily standup meetings to discuss progress, blockers, and next steps.
+- **Sprint Planning:** At the beginning of the sprint, we planned tasks and estimated story points using planning poker.
+- **Sprint Review:** At the end of the sprint, we reviewed completed tasks and demonstrated the functionality.
+- **Sprint Retrospective:** We discussed what went well and what could be improved for the next sprint.
+
