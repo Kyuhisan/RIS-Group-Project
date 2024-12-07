@@ -296,6 +296,16 @@ The progress bar calculates the percentage of completed tasks within each task g
 
 The progress bar is displayed within each task group's row in the main table, showing the exact percentage of tasks completed.
 
+## New Functionality: Adding Attachments
+
+### Description
+Users can now add attachments (e.g., images or documents) to tasks in the Advanced TO-DO List application. This functionality allows for storing all important information in one place.
+
+### How It Works
+- Users can add an attachment to a task by clicking on the attachment icon.
+- Attachments can be various types of files, such as images, documents, PDFs, etc.
+- Attachments are visible and accessible directly from the task, allowing easy access to all necessary information.
+
 ### How to Test the New Functionality
 1. **Run the Application**: Ensure your development server is running.
 2. **Navigate to the Home Page**: Open the application in your browser and go to the home page.
