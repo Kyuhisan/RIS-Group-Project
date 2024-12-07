@@ -22,6 +22,7 @@ interface TaskGroup {
   groupName: string;
   groupProgress: number;
   listOfTasks: Task[];
+  file?: File | null; // Optional file property
 }
 
 export default function Home() {
@@ -71,6 +72,34 @@ export default function Home() {
     }
   };
 
+  const uploadFile = async (groupId: number, file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await axios.post(
+        `http://localhost:8888/api/group/${groupId}/upload`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      LoadGroups();
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
+  const handleFileUpload = (
+    groupId: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      uploadFile(groupId, file);
+    }
+  };
+
   const filteredGroups = groups.filter((group) => {
     const groupValues =
       `${group.id} ${group.groupName} ${group.groupProgress} ${group.listOfTasks}`.toLowerCase();
@@ -107,6 +136,7 @@ export default function Home() {
               <th scope="col">Group Progress</th>
               <th scope="col">Group Tasks</th>
               <th scope="col">Group Actions</th>
+              <th scope="col">File Status</th>
             </tr>
           </thead>
           <tbody>
@@ -146,7 +176,6 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      {/* {(Math.round(group.groupProgress * 100) / 100).toFixed(2)} */}
                     </td>
 
                     <td className="col-md-6">
@@ -188,7 +217,6 @@ export default function Home() {
                       >
                         +
                       </Link>
-
                       <Link
                         className="btn btn-outline-primary mx-2"
                         to={`/EditGroup/${group.id}`}
@@ -201,6 +229,20 @@ export default function Home() {
                       >
                         Delete
                       </button>
+                      <label className="btn btn-outline-secondary mx-2">
+                        <input
+                          type="file"
+                          hidden
+                          onChange={(e) => handleFileUpload(group.id, e)}
+                        />
+                        <i className="bi bi-upload"></i> Upload
+                      </label>
+                    </td>
+
+                    <td>
+                      {group.file ? (
+                        <i className="bi bi-file-earmark-check text-success"></i>
+                      ) : null}
                     </td>
                   </tr>
                 );
