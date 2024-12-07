@@ -26,11 +26,11 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Random random = new Random();
 
-        TaskGroup group1 = new TaskGroup("Homework", 79.36, null);
-        TaskGroup group2 = new TaskGroup("Work Tasks", 56.12, null);
-        TaskGroup group3 = new TaskGroup("Personal Projects", 45.89, null);
-        TaskGroup group4 = new TaskGroup("Home Improvement", 62.73, null);
-        TaskGroup group5 = new TaskGroup("Event Planning", 93.47, null);
+        TaskGroup group1 = new TaskGroup("Homework", 79.36, null, null, null);
+        TaskGroup group2 = new TaskGroup("Work Tasks", 56.12, null, null, null);
+        TaskGroup group3 = new TaskGroup("Personal Projects", 45.89, null, null, null);
+        TaskGroup group4 = new TaskGroup("Home Improvement", 62.73, null, null, null);
+        TaskGroup group5 = new TaskGroup("Event Planning", 93.47, null, null, null);
 
 
         taskGroupRepository.saveAll(Arrays.asList(group1, group2, group3, group4, group5));

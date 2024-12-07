@@ -23,9 +23,15 @@ public class TaskGroup {
     @JsonManagedReference  // Prevents infinite recursion by serializing the tasks
     private List<Task> listOfTasks;
 
-    public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks) {
+    @Lob
+    private byte[] fileBlob;
+    private String fileName;
+
+    public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks , byte[] fileBlob, String fileName) {
         this.groupName = groupName;
         this.groupProgress = groupProgress;
         this.listOfTasks = (listOfTasks != null) ? listOfTasks : Collections.emptyList();
+        this.fileBlob = fileBlob;
+        this.fileName = fileName;
     }
 }

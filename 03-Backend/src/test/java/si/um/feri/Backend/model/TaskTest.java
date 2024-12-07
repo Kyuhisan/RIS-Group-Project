@@ -66,7 +66,7 @@ class TaskUnitTest {
         }
 
         static Stream<Arguments> TaskData() {
-            TaskGroup group = new TaskGroup("Group", 50.0, Collections.emptyList());
+            TaskGroup group = new TaskGroup("Group", 50.0, Collections.emptyList(), null, null);
             return Stream.of(
                     Arguments.of("Task 1", "Desc 1", null, TaskStatus.NOT_STARTED),
                     Arguments.of("Task 2", "Desc 2", group, TaskStatus.IN_PROGRESS),

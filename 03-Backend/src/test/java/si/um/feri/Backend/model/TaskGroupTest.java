@@ -43,7 +43,7 @@ class TaskGroupUnitTest {
         @DisplayName("Create TaskGroup with valid data")
         @Order(1)
         void testCreateTaskGroup() {
-            TaskGroup taskGroup = new TaskGroup("Group A", 75.5, Collections.emptyList());
+            TaskGroup taskGroup = new TaskGroup("Group A", 75.5, Collections.emptyList(), null, null);
 
             assertNotNull(taskGroup);
             assertEquals("Group A", taskGroup.getGroupName());
@@ -57,7 +57,7 @@ class TaskGroupUnitTest {
         @DisplayName("TaskGroup Properties")
         @Order(2)
         void testTaskGroupProperties(String groupName, double progress, List<Task> tasks, int expectedSize) {
-            TaskGroup taskGroup = new TaskGroup(groupName, progress, tasks);
+            TaskGroup taskGroup = new TaskGroup(groupName, progress, tasks, null, null);
 
             assertEquals(groupName, taskGroup.getGroupName());
             assertEquals(progress, taskGroup.getGroupProgress());
@@ -82,9 +82,9 @@ class TaskGroupUnitTest {
         @Order(3)
         Collection<DynamicTest> dynamicTestForTaskGroupProgress() {
             List<TaskGroup> groups = Arrays.asList(
-                    new TaskGroup("Low Progress", 0.0, Collections.emptyList()),
-                    new TaskGroup("Medium Progress", 50.0, Collections.emptyList()),
-                    new TaskGroup("High Progress", 100.0, Collections.emptyList())
+                    new TaskGroup("Low Progress", 0.0, Collections.emptyList(), null, null),
+                    new TaskGroup("Medium Progress", 50.0, Collections.emptyList(), null, null),
+                    new TaskGroup("High Progress", 100.0, Collections.emptyList(), null,null)
             );
 
             return Arrays.asList(
@@ -102,7 +102,7 @@ class TaskGroupUnitTest {
         @DisplayName("TaskGroup with null list of tasks")
         @Order(1)
         void testNullListOfTasks() {
-            TaskGroup taskGroup = new TaskGroup("Group C", 60.0, null);
+            TaskGroup taskGroup = new TaskGroup("Group C", 60.0, null, null, null);
 
             assertNotNull(taskGroup.getListOfTasks(), "List of tasks should not be null");
             assertTrue(taskGroup.getListOfTasks().isEmpty(), "List of tasks should default to empty");
@@ -112,7 +112,7 @@ class TaskGroupUnitTest {
         @DisplayName("TaskGroup empty group name")
         @Order(2)
         void testEmptyGroupName() {
-            TaskGroup taskGroup = new TaskGroup("", 25.0, Collections.emptyList());
+            TaskGroup taskGroup = new TaskGroup("", 25.0, Collections.emptyList(),null, null);
 
             assertEquals("", taskGroup.getGroupName(), "Group name should be an empty string");
         }
