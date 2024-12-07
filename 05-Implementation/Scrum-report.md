@@ -64,5 +64,5 @@
 - **Filip:** Responsible for requirements analysis, database design, integration, testing and documentation. All tasks assigned to Filip were completed on time.
 
 ### Summary:
-- **Total Story Points:** 64 ( 8 hours )
+- **Total Story Points:** 48 ( 6 hours )
 - **Deadlines:** All tasks are on track to meet the planned deadlines.
