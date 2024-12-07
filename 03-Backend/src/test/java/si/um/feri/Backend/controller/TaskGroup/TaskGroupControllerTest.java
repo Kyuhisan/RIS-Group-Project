@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import si.um.feri.Backend.controller.TaskGroupController;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskGroup;
+import si.um.feri.Backend.model.TaskStatus;
 import si.um.feri.Backend.repository.TaskGroupRepository;
 
 import java.nio.file.Path;
@@ -67,8 +68,8 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Get All Groups - Success")
         @Order(1)
         void getAllGroups() throws Exception {
-            TaskGroup group1 = new TaskGroup("Group A", 75.5, null);
-            TaskGroup group2 = new TaskGroup("Group B", 50.0, null);
+            TaskGroup group1 = new TaskGroup("Group A", 75.5, null, null, null);
+            TaskGroup group2 = new TaskGroup("Group B", 50.0, null, null, null);
 
             Mockito.when(taskGroupRepository.findAll()).thenReturn(Arrays.asList(group1, group2));
 
@@ -82,7 +83,7 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Get Group by ID - Success")
         @Order(2)
         void getGroupByID() throws Exception {
-            TaskGroup group = new TaskGroup("Group A", 75.5, null);
+            TaskGroup group = new TaskGroup("Group A", 75.5, null, null, null);
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(group));
 
@@ -95,9 +96,9 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Get All Tasks in a Group - Success")
         @Order(3)
         void getGroupTasks() throws Exception {
-            TaskGroup group = new TaskGroup("Group A", 75.5, null);
-            Task task1 = new Task("Task 1", "Description 1", group, null);
-            Task task2 = new Task("Task 2", "Description 2", group, null);
+            TaskGroup group = new TaskGroup("Group A", 75.5, null, null, null);
+            Task task1 = new Task("Task 1", "Description 1", group, TaskStatus.IN_PROGRESS);
+            Task task2 = new Task("Task 2", "Description 2", group, TaskStatus.FINISHED);
             group.setListOfTasks(Arrays.asList(task1, task2));
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(group));
@@ -112,7 +113,7 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Add New Group - Success")
         @Order(4)
         void createGroup() throws Exception {
-            TaskGroup group = new TaskGroup("Group A", 75.5, null);
+            TaskGroup group = new TaskGroup("Group A", 75.5, null, null, null);
 
             Mockito.when(taskGroupRepository.save(Mockito.any(TaskGroup.class))).thenReturn(group);
 
@@ -128,8 +129,8 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Update Group - Success")
         @Order(5)
         void updateGroup() throws Exception {
-            TaskGroup existingGroup = new TaskGroup("Old Group", 50.0, null);
-            TaskGroup updatedGroup = new TaskGroup("Updated Group", 80.0, null);
+            TaskGroup existingGroup = new TaskGroup("Old Group", 50.0, null , null, null);
+            TaskGroup updatedGroup = new TaskGroup("Updated Group", 80.0, null, null, null);
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(existingGroup));
             Mockito.when(taskGroupRepository.save(Mockito.any(TaskGroup.class))).thenReturn(updatedGroup);
