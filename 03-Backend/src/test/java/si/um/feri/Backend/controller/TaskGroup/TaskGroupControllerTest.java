@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import si.um.feri.Backend.controller.TaskGroupController;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskGroup;
-import si.um.feri.Backend.model.TaskStatus;
 import si.um.feri.Backend.repository.TaskGroupRepository;
 
 import java.nio.file.Path;
@@ -97,8 +96,8 @@ class TaskGroupControllerUnitTest {
         @Order(3)
         void getGroupTasks() throws Exception {
             TaskGroup group = new TaskGroup("Group A", 75.5, null);
-            Task task1 = new Task("Task 1", "Description 1", group, TaskStatus.NOT_STARTED);
-            Task task2 = new Task("Task 2", "Description 2", group, TaskStatus.NOT_STARTED);
+            Task task1 = new Task("Task 1", "Description 1", group, null);
+            Task task2 = new Task("Task 2", "Description 2", group, null);
             group.setListOfTasks(Arrays.asList(task1, task2));
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(group));
@@ -118,8 +117,8 @@ class TaskGroupControllerUnitTest {
             Mockito.when(taskGroupRepository.save(Mockito.any(TaskGroup.class))).thenReturn(group);
 
             mockMvc.perform(post("/group")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"groupName\":\"Group A\",\"groupProgress\":75.5}"))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"groupName\":\"Group A\",\"groupProgress\":75.5}"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.groupName").value("Group A"))
                     .andExpect(jsonPath("$.groupProgress").value(75.5));
@@ -136,8 +135,8 @@ class TaskGroupControllerUnitTest {
             Mockito.when(taskGroupRepository.save(Mockito.any(TaskGroup.class))).thenReturn(updatedGroup);
 
             mockMvc.perform(put("/group/1")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"groupName\":\"Updated Group\",\"groupProgress\":80.0}"))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"groupName\":\"Updated Group\",\"groupProgress\":80.0}"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.groupName").value("Updated Group"))
                     .andExpect(jsonPath("$.groupProgress").value(80.0));
@@ -176,8 +175,8 @@ class TaskGroupControllerUnitTest {
         @Order(2)
         void createGroup() throws Exception {
             mockMvc.perform(post("/group")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"groupProgress\":75.5}")) // Missing groupName
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"groupProgress\":75.5}")) // Missing groupName
                     .andExpect(status().isBadRequest())
                     .andExpect(content().string("Group name is required."));
         }
@@ -189,8 +188,8 @@ class TaskGroupControllerUnitTest {
             Mockito.when(taskGroupRepository.findById(999)).thenReturn(Optional.empty());
 
             mockMvc.perform(put("/group/999")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"groupName\":\"Updated Group\",\"groupProgress\":80.0}"))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content("{\"groupName\":\"Updated Group\",\"groupProgress\":80.0}"))
                     .andExpect(status().isNotFound())
                     .andExpect(content().string("TaskGroup not found with id:999"));
         }
