@@ -58,3 +58,11 @@
 - **Sprint Review:** At the end of the sprint, we reviewed completed tasks and demonstrated the functionality.
 - **Sprint Retrospective:** We discussed what went well and what could be improved for the next sprint.
 
+### Responsibility and Deadlines:
+- **Matic:** Responsible for frontend implementation. All tasks assigned to Matic were completed on time.
+- **Rene:** Responsible for backend implementation. All tasks assigned to Rene were completed on time.
+- **Filip:** Responsible for requirements analysis, database design, integration, testing and documentation. All tasks assigned to Filip were completed on time.
+
+### Summary:
+- **Total Story Points:** 64 ( 8 hours )
+- **Deadlines:** All tasks are on track to meet the planned deadlines.
