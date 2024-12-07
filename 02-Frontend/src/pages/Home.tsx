@@ -22,13 +22,15 @@ interface TaskGroup {
   groupName: string;
   groupProgress: number;
   listOfTasks: Task[];
-  file?: File | null; // Optional file property
+  fileBlob?: string | null; // Base64 string
+  fileName?: string | null; // File name
 }
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [groups, setTaskGroup] = useState<TaskGroup[]>([]);
   const [search, setSearch] = useState<string>("");
+  const [expandedTaskIds, setExpandedTaskIds] = useState<number[]>([]);
 
   useEffect(() => {
     LoadTasks();
@@ -73,21 +75,34 @@ export default function Home() {
   };
 
   const uploadFile = async (groupId: number, file: File) => {
-    const formData = new FormData();
-    formData.append("file", file);
+    const reader = new FileReader();
 
-    try {
-      await axios.post(
-        `http://localhost:8888/api/group/${groupId}/upload`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      LoadGroups();
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
+    reader.onload = async () => {
+      const fileBlob = reader.result as string;
+      const fileName = file.name;
+
+      const taskGroupUpdate = {
+        fileBlob: fileBlob.split(",")[1],
+        fileName,
+      };
+
+      try {
+        await axios.patch(
+          `http://localhost:8888/api/group/${groupId}/file`,
+          taskGroupUpdate,
+          { headers: { "Content-Type": "application/json" } }
+        );
+        LoadGroups();
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+    };
+
+    reader.onerror = () => {
+      console.error("Error reading the file.");
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const handleFileUpload = (
@@ -100,162 +115,207 @@ export default function Home() {
     }
   };
 
+  const downloadFile = async (groupId: number) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8888/api/group/${groupId}`,
+        { responseType: "json" } // Adjust if binary response is required
+      );
+      const { fileBlob, fileName } = response.data;
+
+      if (fileBlob && fileName) {
+        // Decode the Base64 fileBlob
+        const link = document.createElement("a");
+        link.href = `data:application/octet-stream;base64,${fileBlob}`;
+        link.download = fileName;
+        link.click();
+      } else {
+        alert("No file available to download for this group.");
+      }
+    } catch (error) {
+      console.error("Error downloading file:", error);
+      alert("Failed to download the file.");
+    }
+  };
+
+  const toggleTaskDescription = (taskId: number) => {
+    setExpandedTaskIds((prev) =>
+      prev.includes(taskId)
+        ? prev.filter((id) => id !== taskId)
+        : [...prev, taskId]
+    );
+  };
+
   const filteredGroups = groups.filter((group) => {
     const groupValues =
-      `${group.id} ${group.groupName} ${group.groupProgress} ${group.listOfTasks}`.toLowerCase();
-    return groupValues.includes(search.toLowerCase());
+      `${group.id} ${group.groupName} ${group.groupProgress}`.toLowerCase();
+    const taskMatches = group.listOfTasks.some((task) =>
+      `${task.taskName} ${task.status} ${task.taskDescription}`
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    );
+    return groupValues.includes(search.toLowerCase()) || taskMatches;
   });
 
   return (
-    <div className="container">
-      <h1>Advanced TO-DO List</h1>
-
-      {/* Search Input */}
-      <div className="input-group rounded mb-3">
-        <input
-          type="search"
-          className="form-control rounded"
-          placeholder="Search tasks (by any field)"
-          aria-label="Search"
-          aria-describedby="search-addon"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        <Link className="btn btn-outline-primary" to="/AddGroup">
-          Create Group
-        </Link>
+    <div className="container mt-4">
+      <div className="row mb-4">
+        <div className="col-md-9">
+          <input
+            type="search"
+            className="form-control"
+            placeholder="Search tasks (by any field)"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="col-md-3 text-md-end mt-2 mt-md-0">
+          <Link className="btn btn-primary w-100" to="/AddGroup">
+            Create Group
+          </Link>
+        </div>
       </div>
 
-      <div id="groupsContainer">
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th scope="col">Group ID</th>
-              <th scope="col">Group Name</th>
-              <th scope="col">Group Progress</th>
-              <th scope="col">Group Tasks</th>
-              <th scope="col">Group Actions</th>
-              <th scope="col">File Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredGroups.length > 0 ? (
-              filteredGroups.map((group) => {
-                const totalTasks = group.listOfTasks.length;
-                const finishedTasks = group.listOfTasks.filter(
-                  (task) => task.status === TaskStatus.FINISHED
-                ).length;
-                const progressPercentage =
-                  totalTasks > 0 ? (finishedTasks / totalTasks) * 100 : 0;
+      <div className="row">
+        {filteredGroups.length > 0 ? (
+          filteredGroups.map((group) => {
+            const totalTasks = group.listOfTasks.length;
+            const finishedTasks = group.listOfTasks.filter(
+              (task) => task.status === TaskStatus.FINISHED
+            ).length;
+            const progressPercentage =
+              totalTasks > 0 ? (finishedTasks / totalTasks) * 100 : 0;
 
-                return (
-                  <tr className="align-middle" key={group.id}>
-                    <th scope="row">{group.id}</th>
-                    <td>{group.groupName}</td>
-                    <td>
-                      <div className="mb-2">
-                        <div className="progress" style={{ height: "20px" }}>
-                          <div
-                            className={`progress-bar ${
-                              progressPercentage === 100
-                                ? "bg-success"
-                                : progressPercentage > 50
-                                ? "bg-warning"
-                                : "bg-danger"
-                            }`}
-                            role="progressbar"
-                            style={{
-                              width: `${progressPercentage.toFixed(2)}%`,
-                            }}
-                            aria-valuenow={progressPercentage}
-                            aria-valuemin={0}
-                            aria-valuemax={100}
-                          >
-                            {progressPercentage.toFixed(0)}%
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="col-md-6">
-                      <table className="table table-striped text-center table-sm ">
+            return (
+              <div className="col-lg-6 col-xl-4 mb-4" key={group.id}>
+                <div className="card h-100 shadow-sm">
+                  <div className="card-body">
+                    <h5 className="card-title">{group.groupName}</h5>
+                    <p className="card-text">
+                      Progress:{" "}
+                      <span className="fw-bold">
+                        {progressPercentage.toFixed(0)}%
+                      </span>
+                    </p>
+                    <div className="progress mb-3" style={{ height: "10px" }}>
+                      <div
+                        className={`progress-bar ${
+                          progressPercentage === 100
+                            ? "bg-success"
+                            : progressPercentage > 50
+                            ? "bg-warning"
+                            : "bg-danger"
+                        }`}
+                        role="progressbar"
+                        style={{
+                          width: `${progressPercentage.toFixed(2)}%`,
+                        }}
+                        aria-valuenow={progressPercentage}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      ></div>
+                    </div>
+                    <p>
+                      <strong>Tasks:</strong>
+                    </p>
+                    <div className="table-responsive">
+                      <table className="table table-bordered table-sm">
                         <thead>
                           <tr>
-                            <th scope="col">Task Name</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Actions</th>
+                            <th>Task Name</th>
+                            <th>Status</th>
+                            <th>Description</th>
+                            <th>Actions</th>
                           </tr>
                         </thead>
-                        <tbody className="align-middle">
+                        <tbody>
                           {group.listOfTasks.map((task) => (
                             <tr key={task.id}>
                               <td>{task.taskName}</td>
                               <td>{task.status}</td>
-                              <td>{task.taskDescription}</td>
                               <td>
-                                <div className="d-inline-flex justify-content-end">
-                                  <button
-                                    className="btn btn-danger btn-danger mx-2"
-                                    onClick={() => deleteTask(task.id)}
-                                  >
-                                    Delete
-                                  </button>
-                                </div>
+                                <button
+                                  className="btn btn-sm btn-outline-info"
+                                  onClick={() => toggleTaskDescription(task.id)}
+                                >
+                                  {expandedTaskIds.includes(task.id)
+                                    ? "Hide"
+                                    : "Show"}
+                                </button>
+                                {expandedTaskIds.includes(task.id) && (
+                                  <div className="mt-2">
+                                    {task.taskDescription}
+                                  </div>
+                                )}
+                              </td>
+                              <td>
+                                <button
+                                  className="btn btn-sm btn-outline-danger"
+                                  onClick={() => deleteTask(task.id)}
+                                >
+                                  Delete
+                                </button>
                               </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
-                    </td>
-
-                    <td>
-                      <Link
-                        className="btn btn-outline-primary"
-                        to={`/AddTask/${group.id}`}
-                      >
-                        +
-                      </Link>
-                      <Link
-                        className="btn btn-outline-primary mx-2"
-                        to={`/EditGroup/${group.id}`}
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteGroup(group.id)}
-                      >
-                        Delete
-                      </button>
-                      <label className="btn btn-outline-secondary mx-2">
+                    </div>
+                  </div>
+                  <div className="card-footer d-flex justify-content-between">
+                    <span>
+                      {group.fileBlob && group.fileBlob.length > 0 ? (
+                        <i className="bi bi-file-earmark-check text-success"></i>
+                      ) : (
+                        "No attachments"
+                      )}
+                    </span>
+                    <div>
+                      <label className="btn btn-sm btn-outline-secondary me-2">
                         <input
                           type="file"
                           hidden
                           onChange={(e) => handleFileUpload(group.id, e)}
                         />
-                        <i className="bi bi-upload"></i> Upload
+                        Upload
                       </label>
-                    </td>
-
-                    <td>
-                      {group.file ? (
-                        <i className="bi bi-file-earmark-check text-success"></i>
-                      ) : null}
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={6} className="text-center">
-                  No matching groups found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                      {group.fileBlob && group.fileName && (
+                        <button
+                          className="btn btn-sm btn-outline-primary me-2"
+                          onClick={() => downloadFile(group.id)}
+                        >
+                          Download
+                        </button>
+                      )}
+                      <Link
+                        className="btn btn-sm btn-outline-primary me-2"
+                        to={`/AddTask/${group.id}`}
+                      >
+                        +
+                      </Link>
+                      <Link
+                        className="btn btn-sm btn-outline-secondary me-2"
+                        to={`/EditGroup/${group.id}`}
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={() => deleteGroup(group.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="col-12 text-center">
+            <p className="text-muted">No matching groups found.</p>
+          </div>
+        )}
       </div>
     </div>
   );
