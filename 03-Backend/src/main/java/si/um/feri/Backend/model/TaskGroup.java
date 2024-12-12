@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,11 +28,16 @@ public class TaskGroup {
     private byte[] fileBlob;
     private String fileName;
 
-    public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks , byte[] fileBlob, String fileName) {
+    private LocalDate creationDate;
+    private String period;
+
+    public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks, byte[] fileBlob, String fileName) {
         this.groupName = groupName;
         this.groupProgress = groupProgress;
         this.listOfTasks = (listOfTasks != null) ? listOfTasks : Collections.emptyList();
         this.fileBlob = fileBlob;
         this.fileName = fileName;
+        this.creationDate = LocalDate.now();
+        this.period = null;
     }
 }

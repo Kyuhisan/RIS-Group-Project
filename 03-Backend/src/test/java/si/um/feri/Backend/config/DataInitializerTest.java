@@ -51,9 +51,10 @@ class DataInitializerTest {
         System.out.println("Cleaning up after a test...");
         Mockito.reset(taskRepository, taskGroupRepository);
     }
+
     @Nested
     @DisplayName("Positive Tests")
-    class PositiveTests{
+    class PositiveTests {
         @Test
         @DisplayName("Verify TaskGroup Initialization")
         void testTaskGroupInitialization() throws Exception {
@@ -76,11 +77,11 @@ class DataInitializerTest {
             dataInitializer.run();
 
             List<TaskGroup> expectedGroups = Arrays.asList(
-                    new TaskGroup("Homework", 79.36, null),
-                    new TaskGroup("Work Tasks", 56.12, null),
-                    new TaskGroup("Personal Projects", 45.89, null),
-                    new TaskGroup("Home Improvement", 62.73, null),
-                    new TaskGroup("Event Planning", 93.47, null)
+                    new TaskGroup("Homework", 79.36, null, null, null),
+                    new TaskGroup("Work Tasks", 56.12, null, null, null),
+                    new TaskGroup("Personal Projects", 45.89, null, null, null),
+                    new TaskGroup("Home Improvement", 62.73, null, null, null),
+                    new TaskGroup("Event Planning", 93.47, null, null, null)
             );
 
             List<Task> expectedTasks = Arrays.asList(
@@ -112,7 +113,7 @@ class DataInitializerTest {
     class NegativeTests {
         @Test
         @DisplayName("Run with Empty Repositories")
-        void testEmptyRepositories(){
+        void testEmptyRepositories() {
             doThrow(new RuntimeException("Repository is empty")).when(taskGroupRepository).saveAll(anyList());
             doThrow(new RuntimeException("Repository is empty")).when(taskRepository).saveAll(anyList());
 

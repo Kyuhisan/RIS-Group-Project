@@ -118,8 +118,8 @@ class TaskGroupControllerUnitTest {
             Mockito.when(taskGroupRepository.save(Mockito.any(TaskGroup.class))).thenReturn(group);
 
             mockMvc.perform(post("/group")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content("{\"groupName\":\"Group A\",\"groupProgress\":75.5}"))
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("{\"groupName\":\"Group A\",\"groupProgress\":75.5}"))
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.groupName").value("Group A"))
                     .andExpect(jsonPath("$.groupProgress").value(75.5));
@@ -129,7 +129,7 @@ class TaskGroupControllerUnitTest {
         @DisplayName("Update Group - Success")
         @Order(5)
         void updateGroup() throws Exception {
-            TaskGroup existingGroup = new TaskGroup("Old Group", 50.0, null , null, null);
+            TaskGroup existingGroup = new TaskGroup("Old Group", 50.0, null, null, null);
             TaskGroup updatedGroup = new TaskGroup("Updated Group", 80.0, null, null, null);
 
             Mockito.when(taskGroupRepository.findById(1)).thenReturn(Optional.of(existingGroup));
