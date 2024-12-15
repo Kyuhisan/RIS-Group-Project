@@ -29,7 +29,7 @@ public class TaskGroup {
     private String fileName;
 
     private LocalDate creationDate;
-    private String period;
+    private Period period;
 
     public TaskGroup(String groupName, double groupProgress, List<Task> listOfTasks, byte[] fileBlob, String fileName) {
         this.groupName = groupName;
