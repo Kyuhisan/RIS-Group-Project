@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import si.um.feri.Backend.model.Period;
 import si.um.feri.Backend.model.Task;
 import si.um.feri.Backend.model.TaskGroup;
 import si.um.feri.Backend.repository.TaskGroupRepository;
@@ -40,6 +41,8 @@ public class TaskGroupController {
         response.put("listOfTasks", taskGroup.getListOfTasks());
         response.put("fileBlob", taskGroup.getFileBlob());
         response.put("fileName", taskGroup.getFileName());
+        response.put("creationDate", taskGroup.getCreationDate());
+        response.put("period", taskGroup.getPeriod());
         response.put("containsFile", taskGroup.getFileBlob() != null && taskGroup.getFileBlob().length > 0);
 
         return response;
@@ -65,6 +68,18 @@ public class TaskGroupController {
             taskGroup.setGroupName(newTaskGroup.getGroupName());
             taskGroup.setGroupProgress(newTaskGroup.getGroupProgress());
             taskGroup.setListOfTasks(newTaskGroup.getListOfTasks());
+            return taskGroupRepository.save(taskGroup);
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with id:" + id));
+    }
+
+    @PatchMapping("/group/{id}/period")
+    public TaskGroup updateGroupPeriod(@RequestBody TaskGroup newTaskGroup, @PathVariable int id) {
+        logger.info("Updating group with id: " + id);
+        List<Period> validPeriods = List.of(Period.DAILY, Period.WEEKLY, Period.MONTHLY);
+        return taskGroupRepository.findById(id).map(taskGroup -> {
+            if (validPeriods.contains(taskGroup.getPeriod())) {
+                taskGroup.setPeriod(newTaskGroup.getPeriod());
+            }
             return taskGroupRepository.save(taskGroup);
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "TaskGroup not found with id:" + id));
     }
