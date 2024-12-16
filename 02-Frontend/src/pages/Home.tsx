@@ -9,6 +9,12 @@ enum TaskStatus {
   NOT_STARTED = "NOT_STARTED",
 }
 
+enum Period {
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  MONTHLY = "MONTHLY",
+}
+
 interface Task {
   id: number;
   taskName: string;
@@ -24,6 +30,8 @@ interface TaskGroup {
   listOfTasks: Task[];
   fileBlob?: string | null; // Base64 string
   fileName?: string | null; // File name
+  creationDate: string; // ISO format date
+  period?: Period | null; // Periodicity (optional)
 }
 
 export default function Home() {
@@ -31,11 +39,20 @@ export default function Home() {
   const [groups, setTaskGroup] = useState<TaskGroup[]>([]);
   const [search, setSearch] = useState<string>("");
   const [expandedTaskIds, setExpandedTaskIds] = useState<number[]>([]);
+  const [countdowns, setCountdowns] = useState<Record<number, string>>({}); // Store countdowns for each group
 
   useEffect(() => {
     LoadTasks();
     LoadGroups();
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateCountdowns();
+    }, 1000);
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [groups]);
 
   const LoadTasks = async () => {
     try {
@@ -53,6 +70,36 @@ export default function Home() {
     } catch (error) {
       console.error("Error loading groups:", error);
     }
+  };
+
+  const updateCountdowns = () => {
+    const newCountdowns: Record<number, string> = {};
+
+    groups.forEach((group) => {
+      const nextRenewal = calculateNextRenewal(
+        group.creationDate,
+        group.period
+      );
+      if (!nextRenewal || typeof nextRenewal === "string") {
+        newCountdowns[group.id] = nextRenewal || "N/A";
+      } else {
+        const now = new Date();
+        const timeDifference = nextRenewal.getTime() - now.getTime();
+
+        if (timeDifference <= 0) {
+          newCountdowns[group.id] = "Renewed Today";
+        } else {
+          const totalMinutes = Math.floor(timeDifference / (1000 * 60));
+          const days = Math.floor(totalMinutes / (60 * 24));
+          const hours = Math.floor((totalMinutes % (60 * 24)) / 60) - 1;
+          const minutes = totalMinutes % 60;
+
+          newCountdowns[group.id] = `${days}d ${hours}h ${minutes}m`;
+        }
+      }
+    });
+
+    setCountdowns(newCountdowns);
   };
 
   const deleteTask = async (id: number) => {
@@ -146,6 +193,31 @@ export default function Home() {
     );
   };
 
+  const calculateNextRenewal = (
+    creationDate: string,
+    period?: Period | null
+  ) => {
+    if (!period) return null;
+
+    const currentDate = new Date();
+    const creation = new Date(creationDate);
+    let nextRenewal = new Date(creation);
+
+    switch (period) {
+      case Period.DAILY:
+        nextRenewal.setDate(creation.getDate() + 1);
+        break;
+      case Period.WEEKLY:
+        nextRenewal.setDate(creation.getDate() + 7);
+        break;
+      case Period.MONTHLY:
+        nextRenewal.setMonth(creation.getMonth() + 1);
+        break;
+    }
+
+    return nextRenewal;
+  };
+
   const filteredGroups = groups.filter((group) => {
     const groupValues =
       `${group.id} ${group.groupName} ${group.groupProgress}`.toLowerCase();
@@ -170,8 +242,11 @@ export default function Home() {
           />
         </div>
         <div className="col-md-3 text-md-end mt-2 mt-md-0">
-          <Link className="btn btn-primary w-100" to="/AddGroup">
+          <Link className="btn btn-primary w-100 mb-2" to="/AddGroup">
             Create Group
+          </Link>
+          <Link className="btn btn-secondary w-100" to="/RecurringGroups">
+            View Recurring Groups
           </Link>
         </div>
       </div>
@@ -215,6 +290,24 @@ export default function Home() {
                         aria-valuemax={100}
                       ></div>
                     </div>
+                    {group.period && (
+                      <div className="d-flex align-items-center mb-2">
+                        <i
+                          className={`bi ${
+                            group.period === Period.DAILY
+                              ? "bi-calendar-day"
+                              : group.period === Period.WEEKLY
+                              ? "bi-calendar-week"
+                              : "bi-calendar-month"
+                          } me-2`}
+                          title={group.period}
+                        ></i>
+                        <span className="text-muted">
+                          Next Renewal:{" "}
+                          {countdowns[group.id] || "Calculating..."}
+                        </span>
+                      </div>
+                    )}
                     <p>
                       <strong>Tasks:</strong>
                     </p>
