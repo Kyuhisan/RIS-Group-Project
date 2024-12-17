@@ -312,3 +312,23 @@ Users can now add attachments (e.g., images or documents) to tasks in the Advanc
 3. **View Task Groups**: You will see a table listing all task groups. Each group will have a progress bar indicating the completion percentage of its tasks.
 4. **Update Task Status**: Change the status of tasks within a group to see the progress bar update in real-time.
 5. **Create and Delete Tasks**: Add new tasks or delete existing ones to observe changes in the progress bar.
+
+## New Functionality: Periodic Task Addition
+
+### Description
+We have implemented a new periodic task addition functionality in the Advanced TO-DO List application. This feature allows users to create tasks that automatically repeat at specified intervals, ensuring that recurring tasks are never forgotten.
+
+### How It Works
+The periodic task addition feature enables users to set tasks to repeat daily, weekly, or monthly. The system automatically generates new instances of these tasks based on the selected interval:
+- **Daily**: Tasks are recreated every day.
+- **Weekly**: Tasks are recreated every week.
+- **Monthly**: Tasks are recreated every month.
+
+The next occurrence of each task is calculated and displayed, helping users keep track of upcoming tasks. The system also provides a countdown to the next renewal, ensuring users are always aware of their upcoming responsibilities.
+
+### Implementation Details
+- **Task Creation**: Users can select the repeat interval (daily, weekly, monthly) when creating a new task.
+- **Automatic Renewal**: The system calculates the next renewal date based on the task's creation date and the selected interval.
+- **Countdown Display**: A countdown timer shows the time remaining until the next task renewal, providing a clear visual reminder.
+
+This functionality ensures that recurring tasks are managed efficiently, helping users stay organized and on top of their schedules.
