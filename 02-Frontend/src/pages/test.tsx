@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 // Define types for Task and TaskGroup
 type Task = {

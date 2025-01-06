@@ -35,7 +35,7 @@ interface TaskGroup {
 }
 
 export default function Home() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [, setTasks] = useState<Task[]>([]);
   const [groups, setTaskGroup] = useState<TaskGroup[]>([]);
   const [search, setSearch] = useState<string>("");
   const [expandedTaskIds, setExpandedTaskIds] = useState<number[]>([]);
@@ -199,7 +199,6 @@ export default function Home() {
   ) => {
     if (!period) return null;
 
-    const currentDate = new Date();
     const creation = new Date(creationDate);
     let nextRenewal = new Date(creation);
 
