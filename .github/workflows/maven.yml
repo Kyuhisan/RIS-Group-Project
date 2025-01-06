@@ -27,43 +27,52 @@ jobs:
         working-directory: 03-Backend
 
   build_frontend:
-    name: Build frontend
+    name: Build Frontend
     runs-on: ubuntu-latest
     needs: [build_backend]
-
+  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Setup NodeJs
+  
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-
+  
       - name: Install dependencies
-        run: npm run dev
+        run: npm install
+        working-directory: 02-Frontend
+  
+      - name: Build frontend
+        run: npm run build
         working-directory: 02-Frontend
 
-  unit_test:
-    name: Build unit tests
-    runs-on: ubuntu-latest
 
+  unit_test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+  
     steps:
       - name: Checkout repository
-        run: actions/checkout@v3
-
-      - name: Setup java
+        uses: actions/checkout@v3
+  
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '20'
-          
-      #- name: Set up MySql
-          #run:
-            #sudo/directory
-            #mysql create database
-            
-      - name: Unit test
+  
+      - name: Set up MySQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mysql-server
+          sudo service mysql start
+          mysql -u root -e "CREATE DATABASE testdb;"
+        env:
+          MYSQL_ROOT_PASSWORD: root
+  
+      - name: Run Unit Tests
         run: mvn test
         working-directory: 03-Backend
         
