@@ -65,12 +65,8 @@ jobs:
   
       - name: Set up MySQL
         run: |
-          sudo apt-get update
-          sudo apt-get install -y mysql-server
-          sudo service mysql start
-          mysql -u root -e "CREATE DATABASE testdb;"
-        env:
-          MYSQL_ROOT_PASSWORD: root
+          sudo /etc/init.d/mysql start
+          mysql -e 'CREATE DATABASE ris_project;' -uroot -proot
   
       - name: Run Unit Tests
         run: mvn test
