@@ -15,18 +15,19 @@ jobs:
       - name: Checkout repository
         run: actions/checkout@v3
 
-      - name: Setup java
+      - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '20'
+          cache: maven
 
       - name: Build with Maven
-        run: mvn .B package --file pom.xml FDskipTests
-        working-directory: 03-Backend #obvzeno vsaj nekjen navest
+        run: mvn -B package --file pom.xml -DskipTests
+        working-directory: 03-Backend
 
   build_frontend:
-    name: Build frontedn
+    name: Build frontend
     runs-on: ubuntu-latest
     needs: [build_backend]
 
