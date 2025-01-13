@@ -228,6 +228,22 @@ export default function Home() {
     return groupValues.includes(search.toLowerCase()) || taskMatches;
   });
 
+  const calculateOverallProgress = () => {
+    const totalTasks = groups.reduce(
+      (acc, group) => acc + group.listOfTasks.length,
+      0
+    );
+    const completedTasks = groups.reduce(
+      (acc, group) =>
+        acc +
+        group.listOfTasks.filter((task) => task.status === TaskStatus.FINISHED)
+          .length,
+      0
+    );
+
+    return totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+  };
+
   return (
     <div className="container mt-4">
       <div className="row mb-4">
@@ -249,6 +265,51 @@ export default function Home() {
           </Link>
         </div>
       </div>
+
+      <div className="mb-4">
+        <h4>Overall Progress</h4>
+        <div
+          className="progress"
+          style={{
+            height: "30px",
+            border: "1px solid black",
+            borderRadius: "20px",
+            position: "relative",
+          }}
+        >
+          <div
+            className={`progress-bar ${
+              calculateOverallProgress() === 100
+                ? "bg-success"
+                : calculateOverallProgress() > 50
+                ? "bg-warning"
+                : "bg-danger"
+            }`}
+            role="progressbar"
+            style={{
+              width: `${calculateOverallProgress()}%`,
+            }}
+            aria-valuenow={calculateOverallProgress()}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          ></div>
+          <span
+            style={{
+              position: "absolute",
+              fontSize: "15px",
+              left: "50%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+              color: "black",
+              fontWeight: "bold", 
+            }}
+          >
+            {calculateOverallProgress().toFixed(0)}%
+          </span>
+        </div>
+      </div>
+
+
 
       <div className="row">
         {filteredGroups.length > 0 ? (
